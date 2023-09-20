@@ -5,9 +5,9 @@ Note: these resources are just read-only for inventory purposes. The resources i
 
 # Private preview limitations
 
-- Please do **NOT** try this feature in production environments.
+- Please do <code style="color : red">NOT</code> try this feature in production environments.
   
-- Please do **NOT** try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
+- Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
 
 - Arc-enabled EC2 Instance: If your machine is already onboarded to Arc, you cannot see this in Multi-cloud Asset Inventory at this time.
 
@@ -91,24 +91,28 @@ wget https://balupublicclouds.blob.core.windows.net/assetmanagement/AssetManagem
 sh ./AssetManagementOnboardScript.sh
 
 ## Configure AWS account
-- Perform the following operations with an AWS user with administrator access. Please refer to [this document](https://docs.aws.amazon.com/streams/latest/dev/setting-up.html) for how to grant administrator permissions to a user should you have any question.
-
-- Download the AWS CloudFormation template configures the required federated identity with [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd). 
+- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd).
+  
 
 - Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process, please note that **Azure tenant ID** is required.
 
+- Perform the following operations with an AWS user with xxx permissions. Please refer to [this document](https://docs.aws.amazon.com/streams/latest/dev/setting-up.html) for how to grant  permissions to a user should you have any question.
+
 - Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
+![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
+
 
 - Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
 ![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
 
 
-- Retrieve Azure tenant ID with the following command through Azure cloud shell or a local terminal. Alternatively, you could Azure tenant ID by following the information in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
+- Retrieve Azure tenant ID with the following command through Azure cloud shell or a local terminal. 
 ```
 azureTenantId=$(az account show --query tenantId -o tsv)
 ```
+Alternatively, you could Azure tenant ID by following the information in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 
-- Provide a stack name and input the Azure AD tenant ID retrieved from the previous step.
+- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the previous step.
 ![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
 
 
@@ -120,10 +124,10 @@ azureTenantId=$(az account show --query tenantId -o tsv)
 
 
 
-## (optional) Create a solution configuration
+## (Optional) Perform a solution configuration create operation
 The solution configuration outlines the purpose of an onboard Arc server solution, designed to operate at a large scale. Create a file with the name "SolutionConfigurationRequest.json". 
 
-If you are not seeing AWS resources such as EC2 instances, S3 buckets and Lambda functions being onboarded to Azure as multi-cloud asset inventories, please execute the following command once more to trigger the operation.
+If you are <code style ="color : red">NOT</code> seeing AWS resources such as EC2 instances, S3 buckets and Lambda functions being onboarded to Azure as multi-cloud asset inventories, please execute the following command once more to trigger the operation.
 
 ```
 {
@@ -149,10 +153,17 @@ Onboarded multi-cloud asset inventories will be shown under the newly create res
 
 ## Azure portal
 - Wait for 1 minute and head over to the resource group "RG-AssetMgmt", select "Show hidden type" to check for the public cloud connector resource.
+![CleanShot 2023-09-20 at 14 10 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/db8e335b-fba8-46d3-bc6d-925217fda482)
 
-- Head to the resource group "aws_<AWS account ID>" to check for onboarded EC2 instances. The status will show as below.
 
-- Stay the resource group "aws_<AWS account ID>", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
+- Head to the resource group "aws_[AWS account ID]" to check for onboarded EC2 instances. The status will show as below.
+![CleanShot 2023-09-20 at 14 11 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/9d791892-96c9-4040-bd08-d40175488900)
+![CleanShot 2023-09-20 at 14 12 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/fbedbea2-f953-4d3b-8ebd-22576eb7b91c)
+
+
+- Stay the resource group "aws_[AWS account ID]", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
+![CleanShot 2023-09-20 at 14 13 37](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/0aef9534-3ede-4ec1-b016-38b7b4747f57)
+
 
 ### Azure Resource Graph
 - Azure Resource Graph is an Azure service designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment. For more information, please check [this link](https://learn.microsoft.com/en-us/azure/governance/resource-graph/overview).
@@ -166,11 +177,16 @@ awsresources
 | where subscriptionId == "<yoursubscriptionid>"
 | where ['type'] contains "microsoft.awsconnector/ec2instances" 
 ```
+![CleanShot 2023-09-20 at 14 18 27](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/bec15c4c-43a0-449c-8d36-e366c8557d8e)
+
 ```
 resources 
 | where subscriptionId == "<yoursubscriptionid>"
-| where ['type'] contains "microsoft.awsconnector/S3" or ['type'] contains "microsoft.awsconnector/lambdafunctionfonfigurations"
+| where ['type'] contains "microsoft.awsconnector/S3" or ['type'] contains "Microsoft.AwsConnector/lambdaFunctionConfigurations"
 ```
+![CleanShot 2023-09-20 at 14 29 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c92e3acd-a291-4466-b987-33539b14d2cc)
+
+
 
 ### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
 ```
@@ -179,7 +195,7 @@ awsresources
 ```
 ```
 resources 
-| where subscriptionId == "2de0c33c-f475-4b47-932c-4788d7d5b84e"
+| where subscriptionId == "<yoursubscriptionid>"
 | where ['type'] contains "microsoft.hybridcompute" or ['type'] contains "microsoft.compute"
 ```
 
@@ -237,18 +253,23 @@ az rest --method get --url https://management.azure.com/subscriptions/${subscrip
 # Clean up resources
 ## AWS operations
 ### Clean up EC2, S3 and Lambda.
-![CleanShot 2023-09-11 at 12 32 10](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/b3b88400-d347-4b03-b9fc-3a69e4a57c47)
+![CleanShot 2023-09-20 at 14 34 47](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/d11a352b-829b-416a-afe5-050fb42e51cb)
 
 
 ### Clean up the stack.
-![CleanShot 2023-09-11 at 12 33 38](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/e30dc698-1773-45e1-963f-1de3cfca027f)
+![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
 
 
 ## Azure operations
 Once AWS EC2, S3 and Lambda resources are deleted, their Azure representation will be automatically cleaned up in the next periodic sync if the solution configuration is not deleted.
 
-### Clean up all onboarded asset inventories, the public cloud connector and the solution configuration.
+### Clean up all the public cloud connector and the solution configuration.
 ```
 az group delete -n ${resourceGroupName}
+```
+
+### Clean up all onboarded multi-cloud asset inventories.
+```
+az group delete -n "aws_<AWS account ID>"
 ```
