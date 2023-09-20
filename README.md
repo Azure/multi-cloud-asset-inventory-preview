@@ -1,28 +1,12 @@
-# Project
+# Multi-cloud Asset Inventory Management
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. WWhen the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure.
 
-As the maintainer of this project, please make a few updates:
+With this private preview feature, you can onboard AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories, new resources created in your AWS account will also be automatically connected to Azure. 
+- Please **DO NOT** try this feature if you already have Microsoft Defender for Cloud service enabled in your AWS account.
+- Please **DO NOT** try this features in production environments.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
-
-## Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+[Multi-cloud asset inventory management with a single account](https://github.com/Azure/azure-arc-publicclouds-preview/blob/main/preview/multi-cloud-asset-inventory-management-with-singleacct.md)
 
 ## Trademarks
 
