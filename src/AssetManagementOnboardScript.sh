@@ -77,7 +77,7 @@ createAWSConnector()
     if [[ "$publicCloudConnectorState" == "Succeeded" ]]; then
         echo "INFO: Public cloud connector resource created successfully."
     else
-        echo "FAILED: Error occurred while public cloud connector resource."
+        echo "FAILED: Error occurred while creating public cloud connector resource."
 
         exit 1
     fi
