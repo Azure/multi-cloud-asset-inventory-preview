@@ -8,6 +8,8 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
   
 - Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
 
+- Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
+
 - Arc-enabled EC2 Instance: If your machine is already onboarded to Arc, you <code style="color : red">CANNOT</code> see this in Multi-cloud Asset Inventory at this time.
 
 [Multi-cloud asset inventory management with a single account](https://github.com/Azure/azure-arc-publicclouds-preview/blob/main/preview/multi-cloud-asset-inventory-management-with-singleacct.md)
