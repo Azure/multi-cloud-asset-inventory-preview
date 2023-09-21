@@ -9,6 +9,8 @@ Note: these resources are just read-only for inventory purposes. The resources i
   
 - Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
 
+- Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
+
 - Arc-enabled EC2 Instance: If your machine is already onboarded to Arc, you <code style="color : red">CANNOT</code> see this in Multi-cloud Asset Inventory at this time.
 
 # Prerequisites
