@@ -50,6 +50,11 @@ Note: these resources are just read-only for inventory purposes. The resources i
 # Setup instructions
 
 ## Set variables
+### AWS account ID
+This information can be retrieve the top right corner of the AWS management console.
+```
+awsAccountId="<AWS account ID>"
+```
 ```
 # The name of the azure region where we create resource group
 locationName="eastus"
@@ -62,11 +67,6 @@ az group create -n ${resourceGroupName} -l ${locationName}
 
 # The subscription Id in which the resource group is created
 subscriptionId=$(az account show --query id -o tsv)
-
-#AWS account ID
-This information can be retrieve the top right corner of the AWS management console.
-
-awsAccountId="<AWS account ID>"
 
 # The name used in creating the public cloud connector object
 publicCloudConnectorName="aws_connector_${awsAccountId}"
@@ -259,13 +259,13 @@ az rest --method get --url https://management.azure.com/subscriptions/${subscrip
 az resource list -g "aws_${awsAccountId}"
 
 # EC2 
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.AWSConnector/ec2Instances?api-version=2023-04-01-preview --verbose
+az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/ec2Instances?api-version=2023-04-01-preview --verbose
 
 # S3
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.AWSConnector/s3buckets?api-version=2023-04-01-preview --verbose
+az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/s3buckets?api-version=2023-04-01-preview --verbose
 
 # Lambda
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.AWSConnector/lambdaFunctionConfigurations?api-version=2023-04-01-preview --verbose
+az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/lambdaFunctionConfigurations?api-version=2023-04-01-preview --verbose
 
 ```
 
