@@ -57,13 +57,13 @@ awsAccountId="<AWS account ID>"
 ```
 ```
 # The name of the azure region where we create resource group
-locationName="eastus"
+azureLocation="eastus"
 
 # The name of the resource group
 resourceGroupName="RG-AssetMgmt"
 
 # Create a resource group with the set name and location
-az group create -n ${resourceGroupName} -l ${locationName}
+az group create -n ${resourceGroupName} -l ${azureLocation}
 
 # The subscription Id in which the resource group is created
 subscriptionId=$(az account show --query id -o tsv)
@@ -101,7 +101,9 @@ sh ./AssetManagementOnboardScript.sh
 
 ## Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
-- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd).
+
+- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
+![CleanShot 2023-09-21 at 12 17 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/2b36c41a-21d1-45ae-bea0-c04572ee1050)
   
 
 - Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process, please note that **Azure tenant ID** is required.
@@ -114,13 +116,6 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 - Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
 ![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
-
-
-- Retrieve Azure tenant ID with the following command through Azure cloud shell or a local terminal. 
-```
-azureTenantId=$(az account show --query tenantId -o tsv)
-```
-Alternatively, you could Azure tenant ID by following the information in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 
 - Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the previous step.
 ![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
