@@ -10,14 +10,11 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
 
 - Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
 
-- Arc-enabled EC2 Instance: If your machine is already onboarded to Arc, you <code style="color : red">CANNOT</code> see this in Multi-cloud Asset Inventory at this time.
+- Onboarded multi-cloud asset inventories are just read-only resources.
+
+- Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you <code style="color : red">CANNOT</code> see it in multi-cloud asset inventory at this time.
 
 # Getting started
-# Overview
-Leverage Multi-cloud asset inventory to see all your cloud resources in a single portal. Once the AWS connection is established, you can see your AWS resources represented as Azure resources. 
-
-Note: these resources are just read-only for inventory purposes. The resources in AWS are not modified.  
-
 
 # Prerequisites
 - Supported AWS account: single account 
