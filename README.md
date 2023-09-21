@@ -103,12 +103,18 @@ sh ./AssetManagementOnboardScript.sh
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
 - Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
+  
 ![CleanShot 2023-09-21 at 12 17 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/2b36c41a-21d1-45ae-bea0-c04572ee1050)
   
 
-- Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process, please note that **Azure tenant ID** is required.
+- Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
 
-- Perform the following operations with an AWS user with xxx permissions. Please refer to [this document](https://docs.aws.amazon.com/streams/latest/dev/setting-up.html) for how to grant  permissions to a user should you have any question.
+- Perform the following operations with an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
+  - AmazonS3FullAccess
+  - AWSCloudFormationFullAccess
+  - IAMFullAccess
+![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
+   
 
 - Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
 ![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
