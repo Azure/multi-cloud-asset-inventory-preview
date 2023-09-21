@@ -251,17 +251,7 @@ az rest --method get --url https://management.azure.com/subscriptions/${subscrip
 ### Verify all onboarded multi-cloud asset inventories
 ```
 # All
-az resource list -g "aws_${awsAccountId}"
-
-# EC2 
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/ec2Instances?api-version=2023-04-01-preview --verbose
-
-# S3
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/s3buckets?api-version=2023-04-01-preview --verbose
-
-# Lambda
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws_${awsAccountId}/providers/Microsoft.AWSConnector/lambdaFunctionConfigurations?api-version=2023-04-01-preview --verbose
-
+az resource list -g "aws_${awsAccountId} -o table"
 ```
 
 
