@@ -36,9 +36,9 @@ Note: these resources are just read-only for inventory purposes. The resources i
 - Supported Azure regions: 
     - East US
 
-- Use Azure Cloud Shell https://shell.azure.com  or Install az cli using below links
-    - For windows https://aka.ms/installazurecliwindows 
-    - For Linux https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+- It is strongly encouraged to use bash terminal in [Azure Cloud Shell](https://shell.azure.com) or Install az cli using below links
+    - Windows: https://aka.ms/installazurecliwindows 
+    - Linux: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
 
 - Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/) or a local terminal.
 
