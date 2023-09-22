@@ -103,7 +103,7 @@ sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/m
 ### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
-- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
+- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
   
 ![CleanShot 2023-09-21 at 12 17 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/2b36c41a-21d1-45ae-bea0-c04572ee1050)
   
