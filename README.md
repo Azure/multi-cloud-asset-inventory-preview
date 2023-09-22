@@ -230,9 +230,8 @@ resources
 ``` 
 
 ## CLI
-### Verify all onboarded multi-cloud asset inventories
+### View all onboarded multi-cloud asset inventories
 ```
-# All
 az resource list -g "aws_${awsAccountId} -o table"
 ```
 
