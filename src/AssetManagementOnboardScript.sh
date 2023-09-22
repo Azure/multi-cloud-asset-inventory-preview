@@ -5,18 +5,20 @@
 registerRPs()
 {
     echo
-    echo "INFO: Registering Microsoft.HybridConnectivity and Microsoft.AwsConnector resource providers. This process may take 5-10 minutes."
+    echo "INFO: Registering Microsoft.HybridConnectivity, Microsoft.AwsConnector and Microsoft.HybridCompute resource providers. This process may take 5-10 minutes."
 
     # Register resource providers    
     az provider register -n Microsoft.HybridConnectivity 2>/dev/null
     az provider register -n Microsoft.AwsConnector 2>/dev/null
+    az provider register -n Microsoft.HybridCompute 2>/dev/null
 
     iteration=0
     while true; do
         registrationStateHybridConnectivity=`az provider show -n Microsoft.HybridConnectivity --query registrationState --output tsv`
         registrationStateAwsConnector=`az provider show -n Microsoft.AwsConnector --query registrationState --output tsv`
+        registrationStateHybridCompute=`az provider show -n Microsoft.HybridCompute --query registrationState --output tsv`
 
-        if [[ "$registrationStateHybridConnectivity" == "Registered" &&  "$registrationStateAwsConnector" == "Registered" ]]; then
+        if [[ "$registrationStateHybridConnectivity" == "Registered" &&  "$registrationStateAwsConnector" == "Registered" &&  "$registrationStateHybridCompute" == "Registered" ]]; then
             break
         else
             iteration=$((iteration+1))
@@ -30,7 +32,7 @@ registerRPs()
         fi
     done
 
-    echo "INFO: Resource provider registration is now complete for Microsoft.HybridConnectivity and Microsoft.AwsConnector."
+    echo "INFO: Resource provider registration is now complete for Microsoft.HybridConnectivity, Microsoft.AwsConnector and Microsoft.HybridCompute."
 }
 
 # Feature flag registration
