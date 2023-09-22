@@ -48,7 +48,7 @@ It is strongly encouraged to run AWS operations prior to Azure operations. Pleas
 In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
 
 ### AWS account ID
-Retrieve AWS account ID from the top right corner of the AWS management console and head back to [Azure Cloud Shell](https://shell.azure.com).
+Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/) and head back to [Azure Cloud Shell](https://shell.azure.com).
 ```
 awsAccountId="<AWS account ID>"
 ```
