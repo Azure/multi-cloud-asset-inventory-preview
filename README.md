@@ -46,7 +46,7 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
 
 # Setup instructions
 
-## Set variables
+## Azure operations
 ### AWS account ID
 This information can be retrieve the top right corner of the AWS management console.
 ```
@@ -81,7 +81,7 @@ periodicSync=true
 periodicSyncTime=1
 ```
 
-## Export variables
+### Export variables
 ```
 export subscriptionId
 export resourceGroupName
@@ -94,17 +94,18 @@ export periodicSyncTime
 export periodicSync
 ```
 
-## Download the onboarding scripts
+### Download the onboarding scripts
 ```
 wget https://balupublicclouds.blob.core.windows.net/assetmanagement/AssetManagementOnboardScript.sh; chmod +x ./AssetManagementOnboardScript.sh
 ```
 
-## Execute the onboarding scripts
+### Execute the onboarding scripts
 ```
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
 
-## Configure AWS account
+## AWS operations
+### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
 - Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
@@ -137,8 +138,6 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 - Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
 ![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
-
-
 
 ## (Optional) Perform a solution configuration create operation
 The solution configuration outlines the purpose of an onboard Arc server solution, designed to operate at a large scale. Create a file with the name "SolutionConfigurationRequest.json". 
@@ -189,19 +188,11 @@ Onboarded multi-cloud asset inventories will be shown under the newly create res
 
 ### Scenario: query all onboarded multi-cloud asset inventories.
 ```
-awsresources 
-| where subscriptionId == "<yoursubscriptionid>"
-| where ['type'] contains "microsoft.awsconnector/ec2instances" 
+resources
+| where subscriptionId == "<subscription ID>"
+| where resourceGroup == "aws_<AWS account ID>"
+| where id contains "microsoft.awsconnector"
 ```
-![CleanShot 2023-09-20 at 14 18 27](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/bec15c4c-43a0-449c-8d36-e366c8557d8e)
-
-```
-resources 
-| where subscriptionId == "<yoursubscriptionid>"
-| where ['type'] contains "microsoft.awsconnector/S3" or ['type'] contains "Microsoft.AwsConnector/lambdaFunctionConfigurations"
-```
-![CleanShot 2023-09-20 at 14 29 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c92e3acd-a291-4466-b987-33539b14d2cc)
-
 
 
 ### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
@@ -244,21 +235,6 @@ resources
 ``` 
 
 ## CLI
-
-### Verify the creation of public cloud connector resource
-To verify, please ensure that provisioningState= "Succeeded" by running following command.
-```
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}?api-version=2023-04-01-preview --verbose
-```
-
-Alternatively, the public cloud connector resource can be viewed within the resource group "RG-AssetMgmt" with "show hidden resources" selected.
-
-### Verify the creation of solution configuration resource
-To verify, please ensure that provisioningState= "Succeeded" by running following command
-```
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}/providers/Microsoft.HybridConnectivity/solutionConfigurations/${solutionConfigurationName}?api-version=2023-04-01-preview --verbose
-```
-
 ### Verify all onboarded multi-cloud asset inventories
 ```
 # All
@@ -268,22 +244,12 @@ az resource list -g "aws_${awsAccountId} -o table"
 
 
 # Clean up resources
-## AWS operations
-### Clean up EC2, S3 and Lambda.
-![CleanShot 2023-09-20 at 14 34 47](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/d11a352b-829b-416a-afe5-050fb42e51cb)
-
-
-### Clean up the stack.
-![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
-
-
 
 ## Azure operations
 Once AWS EC2, S3 and Lambda resources are deleted, their Azure representation will be automatically cleaned up in the next periodic sync if the solution configuration is not deleted.
 
-### Clean up all the public cloud connector and the solution configuration.
+### Clean up the public cloud connector and the solution configuration.
 ```
-az group delete -n ${resourceGroupName}
 ```
 
 ### Clean up all onboarded multi-cloud asset inventories.
@@ -291,6 +257,9 @@ az group delete -n ${resourceGroupName}
 az group delete -n "aws__${awsAccountId}"
 ```
 
+## AWS operations
+### Clean up the stack.
+![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
 ## Trademarks
 
