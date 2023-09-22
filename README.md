@@ -66,7 +66,7 @@ az group create -n ${resourceGroupName} -l ${azureLocation}
 subscriptionId=$(az account show --query id -o tsv)
 
 # The name used in creating the public cloud connector object
-publicCloudConnectorName="aws_connector_${awsAccountId}"
+publicCloudConnectorName="aws_assetMgmt_${awsAccountId}"
 
 # The name used in creating the solution configuration object
 solutionConfigurationName="aws_solutionconfig_${awsAccountId}"
