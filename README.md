@@ -1,6 +1,6 @@
 # Multi-cloud Asset Inventory Management
 
-Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. WWhen the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure.
+Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure.
 
 With this private preview feature, you can onboard AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories, new resources created in your AWS account will also be automatically connected to Azure. 
 
@@ -17,7 +17,8 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
 # Getting started
 
 # Prerequisites
-- Supported AWS account: single account 
+- Supported AWS account type: single account
+  Organization account will be supported in the future release.
 
 - Supported AWS resource types: 
     - EC2
@@ -33,11 +34,9 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
 - Supported Azure regions: 
     - East US
 
-- It is strongly encouraged to use bash terminal in [Azure Cloud Shell](https://shell.azure.com) or Install az cli using below links
-    - Windows: https://aka.ms/installazurecliwindows 
-    - Linux: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+- It is strongly encouraged to use bash terminal in [Azure Cloud Shell](https://shell.azure.com).
 
-- Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/) or a local terminal.
+- Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/).
 
     ```
     az login
@@ -45,10 +44,11 @@ With this private preview feature, you can onboard AWS EC2 instances, S3 buckets
     ```
 
 # Setup instructions
+It is strongly encouraged to run AWS operations prior to Azure operations. Please click here to jump over to AWS operations.
 
 ## Azure operations
 ### AWS account ID
-This information can be retrieve the top right corner of the AWS management console.
+Retrieve AWS account ID from the top right corner of the AWS management console and head back to [Azure Cloud Shell](https://shell.azure.com).
 ```
 awsAccountId="<AWS account ID>"
 ```
@@ -103,7 +103,9 @@ sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/m
 ### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
-- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>.
+- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>. PublicCloudConnectorAzureTenantId can also be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
+![CleanShot 2023-09-22 at 11 55 58](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/49ad02aa-4d55-4816-98fc-cd90d9f324db)
+
   
 ![CleanShot 2023-09-21 at 12 17 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/2b36c41a-21d1-45ae-bea0-c04572ee1050)
   
