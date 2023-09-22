@@ -73,6 +73,12 @@ solutionConfigurationName="aws_solutionconfig_${awsAccountId}"
 
 # AWS services to import
 awsServicesToImport="ec2,s3,lambda"
+
+# Import AWS resources periodically. Allowed values are true (Default), false.
+periodicSync=true
+
+# Frequency in hours, at which Azure imports the AWS resources. Allowed values are 1 (Default), 2, 4, 6, 12, 24.
+periodicSyncTime=1
 ```
 
 ## Export variables
@@ -84,6 +90,8 @@ export publicCloudConnectorName
 export solutionConfigurationName
 export awsAccountId
 export awsServicesToImport
+export periodicSyncTime
+export periodicSync
 ```
 
 ## Download the onboarding scripts
@@ -93,7 +101,7 @@ wget https://balupublicclouds.blob.core.windows.net/assetmanagement/AssetManagem
 
 ## Execute the onboarding scripts
 ```
-sh ./AssetManagementOnboardScript.sh
+sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
 
 ## Configure AWS account
