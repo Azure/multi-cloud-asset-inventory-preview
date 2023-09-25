@@ -189,9 +189,9 @@ az resource list -g aws_${awsAccountId} -o table
 ```
 
 # Troubleshooting
-This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure. Please replace ${resourceGroups}, ${publicCloudConnectorName} and ${solutionConfigurationName} for the Az CLI command to work.
+This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure.
 ```
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws-asset-management-rg/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}/providers/Microsoft.HybridConnectivity/solutionConfigurations/${solutionConfigurationName}?api-version=2023-04-01-preview --verbose
+az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws-asset-management-rg/providers/Microsoft.HybridConnectivity/publicCloudConnectors/aws-connector-${awsAccountId}/providers/Microsoft.HybridConnectivity/solutionConfigurations/aws-asset-management?api-version=2023-04-01-preview --verbose
 ```
 
 # Clean up resources
