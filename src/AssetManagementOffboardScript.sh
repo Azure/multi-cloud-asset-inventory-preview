@@ -30,7 +30,7 @@ deleteResourceGroup()
     rgName="$1"
 
     echo
-    # Create resource group
+    # Delete resource group
     echo "INFO: Deleting resource group: '$rgName'."
     
     rgDeleteCmd="az group delete -n $rgName -y"
@@ -44,9 +44,9 @@ deleteResourceGroup()
 
     returnVal=$(eval $rgDeleteCmd 2>&1)
     if [[ "$returnVal" != *"ResourceGroupNotFound"* ]]; then
-		echo "WARN: Resource group: '$rgName' deletion failed with error: $returnVal. Please ensure that you have the required permissions to delete resource groups."
+        echo "WARN: Resource group: '$rgName' deletion failed with error: $returnVal. Please ensure that you have the required permissions to delete resource groups."
         echo "WARN: Continue with the script execution."
-	else
+    else
         echo "INFO: Resource group: '$rgName' is deleted successfully."
     fi
 }
