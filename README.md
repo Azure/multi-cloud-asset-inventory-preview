@@ -23,11 +23,11 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     - S3 Bucket
     - Lambda
 
-- Supported AWS regions:
+- Supported AWS regions: only AWS resources in these AWS regions will be onboarded to Azure.
     - us-east-1
-  	- us-east-2
-  	- us-west-1
-  	- us-west-2  
+    - us-east-2
+    - us-west-1
+    - us-west-2  
 
 - Supported Azure regions: 
     - East US
@@ -42,10 +42,14 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     ```
 
 # Setup instructions
-It is strongly encouraged to run AWS operations prior to Azure operations. Please click here to jump over to AWS operations.
+It is strongly encouraged to run AWS operations prior to Azure operations. Please click here to jump over to AWS operations. 
+- Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
+- <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 
 ## Azure operations
-In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
+- Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
+
+- In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
 
 ### AWS account ID
 Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/) and head back to [Azure Cloud Shell](https://shell.azure.com).
@@ -53,23 +57,8 @@ Retrieve AWS account ID from the top right corner of the [AWS management console
 awsAccountId="<AWS account ID>"
 ```
 ```
-# The name of the azure region where we create resource group
-azureLocation="eastus"
-
-# The name of the resource group
-resourceGroupName="RG-AssetMgmt"
-
-# Create a resource group with the set name and location
-az group create -n ${resourceGroupName} -l ${azureLocation}
-
 # The subscription Id in which the resource group is created
 subscriptionId=$(az account show --query id -o tsv)
-
-# The name used in creating the public cloud connector object
-publicCloudConnectorName="aws_assetMgmt_${awsAccountId}"
-
-# The name used in creating the solution configuration object
-solutionConfigurationName="aws_solutionconfig_${awsAccountId}"
 
 # AWS services to import
 awsServicesToImport="ec2,s3,lambda"
@@ -103,7 +92,7 @@ sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/m
 ### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
-- Follow the last line on the terminal and download the AWS CloudFormation template from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>. PublicCloudConnectorAzureTenantId can also be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
+- Follow the last line on the terminal and download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>. <code style="color : red">PublicCloudConnectorAzureTenantId</code> can also be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 ![CleanShot 2023-09-22 at 11 55 58](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/49ad02aa-4d55-4816-98fc-cd90d9f324db)
 
   
@@ -135,29 +124,6 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 - Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
 ![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
-
-## (Optional) Perform a solution configuration create operation
-The solution configuration outlines the purpose of an onboard Arc server solution, designed to operate at a large scale. Create a file with the name "SolutionConfigurationRequest.json". 
-
-If you are <code style ="color : red">NOT</code> seeing AWS resources such as EC2 instances, S3 buckets and Lambda functions being onboarded to Azure as multi-cloud asset inventories, please execute the following command once more to trigger the operation.
-
-```
-{
-	"properties": {
-		"solutionType": "Microsoft.AssetManagement",
-		"solutionSettings": {
-			"cloudProviderServiceTypes": "s3, lambda, ec2"
-		}
-	}
-}
-```
-
-```
-az rest --method put --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}/providers/Microsoft.HybridConnectivity/solutionConfigurations/${solutionConfigurationName}?api-version=2023-04-01-preview --body @SolutionConfigurationRequest.json --verbose
-
-```
-
-
 
 
 #  View resources
@@ -237,6 +203,8 @@ resources
 az resource list -g "aws_${awsAccountId} -o table"
 ```
 
+# Troubleshooting
+These steps can be used when you are not seeing AWS resources that should be onboarded.
 
 
 # Clean up resources
