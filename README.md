@@ -123,12 +123,11 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 
 #  View resources
-Onboarded multi-cloud asset inventories will be shown under the newly create resource group called "aws_{AWS account ID}"; Public cloud connector and solution configuration resources will be shown under the self-created resource group.
+Public cloud connector and solution configuration resources will be shown under the newly created resource group "aws-asset-management-rg"; onboarded multi-cloud asset inventories will be shown under the newly create resource group called "aws_{AWS account ID}".
 
 ## Azure portal
-- Wait for 1 minute and head over to the resource group "RG-AssetMgmt", select "Show hidden type" to check for the public cloud connector resource.
-![CleanShot 2023-09-20 at 14 10 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/db8e335b-fba8-46d3-bc6d-925217fda482)
-
+- Wait for 1 minute and head over to the resource group "aws-asset-management-rg", select "Show hidden type" to check for the public cloud connector resource.
+![CleanShot 2023-09-25 at 16 14 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/6c41c101-4db1-4814-ae49-b10978ea6f50)
 
 - Head to the resource group "aws_[AWS account ID]" to check for onboarded EC2 instances. The status will show as below.
 ![CleanShot 2023-09-20 at 14 11 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/9d791892-96c9-4040-bd08-d40175488900)
@@ -136,14 +135,14 @@ Onboarded multi-cloud asset inventories will be shown under the newly create res
 
 
 - Stay the resource group "aws_[AWS account ID]", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
-![CleanShot 2023-09-20 at 14 13 37](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/0aef9534-3ede-4ec1-b016-38b7b4747f57)
-
+![CleanShot 2023-09-25 at 16 16 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/da0b0ae4-7d1c-4e04-ab70-02ec8d5a85f9)
 
 ### Azure Resource Graph
 - Azure Resource Graph is an Azure service designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment. For more information, please check [this link](https://learn.microsoft.com/en-us/azure/governance/resource-graph/overview).
   
 - Head to [Azure Resource Graph Explorer](https://ms.portal.azure.com/#view/HubsExtension/ArgQueryBlade).
-![CleanShot 2023-09-15 at 09 25 32@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/e86f594a-3d09-459d-bd06-8d2a31a3bf9a)
+![CleanShot 2023-09-25 at 16 13 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/19329844-a0b5-4f03-ae4a-9acc13be8a34)
+
 
 ### Scenario: query all onboarded multi-cloud asset inventories.
 ```
@@ -183,20 +182,10 @@ resources
 | project subscriptionId, resourceGroup, name, azureTags, awsTags 
 ```
 
-### Scenario: query for all resources types in AWS Account 
-```
-resources 
-| where resourceGroup contains "<yourAccountId>" and ['type'] !contains "hybridcompute" 
-| extend aws_ResourceName=properties.awsResourceName, aws_AccountId=properties.awsAccountId, publicCloudConnectorId=properties.publicCloudConnectorsResourceId, awsTags=properties.awsTags, awsRegion=properties.awsRegion 
-| parse publicCloudConnectorId with * "microsoft.hybridconnectivity/publiccloudconnectors/" publicCloudConnectorName 
-| extend awsRegion=iff(awsRegion!="", awsRegion, "global") 
-| project subscriptionId, aws_AccountId, type, name, aws_ResourceName, publicCloudConnectorName, awsTags, awsRegion, properties
-``` 
-
 ## CLI
 ### View all onboarded multi-cloud asset inventories
 ```
-az resource list -g "aws_${awsAccountId} -o table"
+az resource list -g aws_${awsAccountId} -o table
 ```
 
 # Clean up resources
@@ -204,26 +193,15 @@ az resource list -g "aws_${awsAccountId} -o table"
 ## Azure operations
 Once AWS EC2, S3 and Lambda resources are deleted, their Azure representation will be automatically cleaned up in the next periodic sync if the solution configuration is not deleted.
 
-### Clean up the public cloud connector and the solution configuration.
+### Clean up all the public cloud connector, the solution configuration and all onboarded multi-cloud asset inventories.
 ```
-```
-
-### Clean up all onboarded multi-cloud asset inventories.
-```
-az group delete -n "aws__${awsAccountId}"
+sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh
 ```
 
 ## AWS operations
 ### Clean up the stack.
 ![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
 
 # Troubleshooting
 This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure. Please replace ${resourceGroups}, ${publicCloudConnectorName} and ${solutionConfigurationName} for the Az CLI command to work.
