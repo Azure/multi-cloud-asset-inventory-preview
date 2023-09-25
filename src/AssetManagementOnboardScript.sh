@@ -113,18 +113,10 @@ invalidConfiguration()
     exit 2
 }
 
-checkConfiguration()
+readConfiguration()
 {
-    # Check the configuration values
+    # Read the configuration values
     if [ -z ${subscriptionId+x} ]; then invalidConfiguration "subscriptionId"; else echo "INFO: subscriptionId: '$subscriptionId'"; fi
-
-    if [ -z ${resourceGroupName+x} ]; then invalidConfiguration "resourceGroupName"; else echo "INFO: resourceGroupName: '$resourceGroupName'"; fi
-
-    if [ -z ${azureLocation+x} ]; then invalidConfiguration "azureLocation"; else echo "INFO: azureLocation: '$azureLocation'"; fi
-
-    if [ -z ${publicCloudConnectorName+x} ]; then invalidConfiguration "publicCloudConnectorName"; else echo "INFO: publicCloudConnectorName: '$publicCloudConnectorName'"; fi
-
-    if [ -z ${solutionConfigurationName+x} ]; then invalidConfiguration "solutionConfigurationName"; else echo "INFO: solutionConfigurationName: '$solutionConfigurationName'"; fi
 
     if [ -z ${awsAccountId+x} ]; then invalidConfiguration "awsAccountId"; else echo "INFO: awsAccountId: '$awsAccountId'"; fi
 
@@ -135,11 +127,48 @@ checkConfiguration()
     if [ -z ${periodicSyncTime+x} ]; then invalidConfiguration "periodicSyncTime"; else echo "INFO: periodicSyncTime: '$periodicSyncTime'"; fi
 }
 
-# Read configuration values
-checkConfiguration
+initConfiguration()
+{
+    resourceGroupName="aws-asset-management-rg"
+    solutionConfigurationName="aws-asset-management"
+    publicCloudConnectorName="aws-connector-$awsAccountId"
+    azureLocation="eastus"
+}
+
+createResourceGroup()
+{
+    rgName="$1"
+
+    echo
+    # Create resource group
+    echo "INFO: Creating resource group: '$rgName'."
+    
+    az group create -n $rgName -l $azureLocation --tags "multi-cloud-inventory" 1>/dev/null
+    if [ $? -ne 0 ]; then
+		echo "FATAL: resource group: '$rgName' creation failed. Please ensure that you have the required permissions to create resource groups."
+
+        exit 1
+	fi
+
+    echo "INFO: Resource group: '$rgName' is created successfully."
+}
+
+# Start of the script execution
+echo
+echo "Asset Management Onboard script"
+echo
 
 # Set the account
 az account set -s $subscriptionId
+
+# Read configuration values
+readConfiguration
+
+# Initialize configuration values
+initConfiguration
+
+# Create Resource Group
+createResourceGroup $resourceGroupName
 
 # Register RPs
 registerRPs
