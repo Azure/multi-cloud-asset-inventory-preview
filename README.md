@@ -72,12 +72,8 @@ periodicSyncTime=1
 
 ### Export variables
 ```
-export subscriptionId
-export resourceGroupName
-export azureLocation
-export publicCloudConnectorName
-export solutionConfigurationName
 export awsAccountId
+export subscriptionId
 export awsServicesToImport
 export periodicSyncTime
 export periodicSync
