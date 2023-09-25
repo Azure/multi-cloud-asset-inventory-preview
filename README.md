@@ -188,6 +188,12 @@ resources
 az resource list -g aws_${awsAccountId} -o table
 ```
 
+# Troubleshooting
+This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure. Please replace ${resourceGroups}, ${publicCloudConnectorName} and ${solutionConfigurationName} for the Az CLI command to work.
+```
+az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws-asset-management-rg/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}/providers/Microsoft.HybridConnectivity/solutionConfigurations/${solutionConfigurationName}?api-version=2023-04-01-preview --verbose
+```
+
 # Clean up resources
 
 ## Azure operations
@@ -201,8 +207,4 @@ Clean up the stack.
 ![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
 
-# Troubleshooting
-This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure. Please replace ${resourceGroups}, ${publicCloudConnectorName} and ${solutionConfigurationName} for the Az CLI command to work.
-```
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}/providers/Microsoft.HybridConnectivity/publicCloudConnectors/${publicCloudConnectorName}/providers/Microsoft.HybridConnectivity/solutionConfigurations/${solutionConfigurationName}?api-version=2023-04-01-preview --verbose
-```
+
