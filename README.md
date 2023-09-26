@@ -5,8 +5,8 @@
 - [View resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-resources)
 - [Troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#troubleshooting)
 - [Clean up resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#clean-up-resources)
-- [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md)
-- [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/CODE_OF_CONDUCT.md)
+- [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#support)
+- [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
 ## Overview
 Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
@@ -217,7 +217,7 @@ Clean up the stack.
 
 
 ## Support
-Please see our support policy.
+Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
 
 ## Code of conduct
-This project has adopted the Microsoft Open Source Code of Conduct. For more information, see the Code of Conduct FAQ or contact opencode@microsoft.com with any additional questions or comments.
+This project has adopted the Microsoft Open Source Code of Conduct. For more information, see the [Code of Conduct FAQ](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/CODE_OF_CONDUCT.md) or contact opencode@microsoft.com with any additional questions or comments.
