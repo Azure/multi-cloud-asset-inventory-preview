@@ -1,5 +1,13 @@
 # Multi-cloud Asset Inventory Management
 
+- [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
+- [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
+- [View resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-resources)
+- [Troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#troubleshooting)
+- [Clean up resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#clean-up-resources)
+- [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md)
+- [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/CODE_OF_CONDUCT.md)
+
 ## Overview
 Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
 
@@ -208,4 +216,8 @@ Clean up the stack.
 ![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
 
+## Support
+Please see our support policy.
 
+## Code of conduct
+This project has adopted the Microsoft Open Source Code of Conduct. For more information, see the Code of Conduct FAQ or contact opencode@microsoft.com with any additional questions or comments.
