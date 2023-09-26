@@ -1,5 +1,6 @@
 # Multi-cloud Asset Inventory Management
 
+## Overview
 Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
 
 With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure.
@@ -12,9 +13,9 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 
 - Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you <code style="color : red">CANNOT</code> see it in multi-cloud asset inventory at this time.
 
-# Getting started
+## Getting started
 
-# Prerequisites
+### Prerequisites
 - Supported AWS account type: single account
   Organization account will be supported in the future release.
 
@@ -41,17 +42,17 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     az account set -s <subscription name/ID>
     ```
 
-# Setup instructions
+### Setup instructions
 It is strongly encouraged to run AWS operations prior to Azure operations. Please click here to jump over to AWS operations. 
 - Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
 - <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 
-## Azure operations
+#### Azure operations
 - Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
 
 - In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
 
-### AWS account ID
+##### Set variables
 Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/) and head back to [Azure Cloud Shell](https://shell.azure.com).
 ```
 awsAccountId="<AWS account ID>"
@@ -70,7 +71,7 @@ periodicSync=true
 periodicSyncTime=1
 ```
 
-### Export variables
+##### Export variables
 ```
 export awsAccountId
 export subscriptionId
@@ -79,13 +80,13 @@ export periodicSyncTime
 export periodicSync
 ```
 
-### Execute the onboarding scripts
+##### Execute the onboarding scripts
 ```
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
 
-## AWS operations
-### Configure AWS account
+#### AWS operations
+##### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
 - Follow the last line on the terminal and download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>. <code style="color : red">PublicCloudConnectorAzureTenantId</code> can also be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
@@ -122,10 +123,10 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 ![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
 
 
-#  View resources
+##  View resources
 Public cloud connector and solution configuration resources will be shown under the newly created resource group "aws-asset-management-rg"; onboarded multi-cloud asset inventories will be shown under the newly create resource group called "aws_{AWS account ID}".
 
-## Azure portal
+### Azure portal
 - Wait for 1 minute and head over to the resource group "aws-asset-management-rg", select "Show hidden type" to check for the public cloud connector resource.
 ![CleanShot 2023-09-25 at 16 14 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/6c41c101-4db1-4814-ae49-b10978ea6f50)
 
@@ -137,14 +138,14 @@ Public cloud connector and solution configuration resources will be shown under 
 - Stay the resource group "aws_[AWS account ID]", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
 ![CleanShot 2023-09-25 at 16 16 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/da0b0ae4-7d1c-4e04-ab70-02ec8d5a85f9)
 
-### Azure Resource Graph
+#### Azure Resource Graph
 - Azure Resource Graph is an Azure service designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment. For more information, please check [this link](https://learn.microsoft.com/en-us/azure/governance/resource-graph/overview).
   
 - Head to [Azure Resource Graph Explorer](https://ms.portal.azure.com/#view/HubsExtension/ArgQueryBlade).
 ![CleanShot 2023-09-25 at 16 13 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/19329844-a0b5-4f03-ae4a-9acc13be8a34)
 
 
-### Scenario: query all onboarded multi-cloud asset inventories.
+##### Scenario: query all onboarded multi-cloud asset inventories.
 ```
 resources
 | where subscriptionId == "<subscription ID>"
@@ -153,7 +154,7 @@ resources
 ```
 
 
-### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
+##### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
 ```
 awsresources
 | where ['type'] contains "microsoft.awsconnector/ec2instances"
@@ -165,7 +166,7 @@ resources
 ```
 
 
-### Scenario: query for all storage accounts and their creation time
+##### Scenario: query for all storage accounts and their creation time
 ```
 resources 
 | where subscriptionId =="<yoursubscriptionid>" 
@@ -174,7 +175,7 @@ resources
 | project cloud, subscriptionId, resourceGroup, name, storageAccountCreationTime 
 ```
 
-### Scenario: query for all resources with certain tag 
+##### Scenario: query for all resources with certain tag 
 ```
 resources 
 | extend awsTags=iff(type contains "microsoft.awsconnector", properties.awsTags, ""), azureTags=tags 
@@ -182,27 +183,27 @@ resources
 | project subscriptionId, resourceGroup, name, azureTags, awsTags 
 ```
 
-## CLI
+### CLI
 ### View all onboarded multi-cloud asset inventories
 ```
 az resource list -g aws_${awsAccountId} -o table
 ```
 
-# Troubleshooting
+## Troubleshooting
 This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure.
 ```
 az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws-asset-management-rg/providers/Microsoft.HybridConnectivity/publicCloudConnectors/aws-connector-${awsAccountId}/providers/Microsoft.HybridConnectivity/solutionConfigurations/aws-asset-management?api-version=2023-04-01-preview --verbose
 ```
 
-# Clean up resources
+## Clean up resources
 
-## Azure operations
+### Azure operations
 Clean up all the public cloud connector, the solution configuration and all onboarded multi-cloud asset inventories.
 ```
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh
 ```
 
-## AWS operations
+### AWS operations
 Clean up the stack.
 ![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
 
