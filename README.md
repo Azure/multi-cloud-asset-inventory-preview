@@ -9,7 +9,7 @@
 - [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
 ## Overview
-Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query for resources with a certain tag (from Azure or AWS), you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
+Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
 
 With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure.
 
@@ -19,13 +19,14 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 
 - Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
 
-- Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you <code style="color : red">CANNOT</code> see it in multi-cloud asset inventory at this time.
+- Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you will see a duplicate `Microsoft.HybridCompute` resource (with a different resource ID) in multi-cloud inventory.
 
 ## Getting started
 
 ### Prerequisites
 - Supported AWS account type: single account
-  Organization account will be supported in the future release.
+  
+  - Organization account will be supported in the future release.
 
 - Supported AWS resource types: 
     - EC2
@@ -41,9 +42,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 - Supported Azure regions: 
     - East US
 
-- It is strongly encouraged to use bash terminal in [Azure Cloud Shell](https://shell.azure.com).
-
-- Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/).
+- Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/) and use `bash`.
 
     ```
     az login
@@ -51,17 +50,18 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     ```
 
 ### Setup instructions
-It is strongly encouraged to run AWS operations prior to Azure operations. Please click here to jump over to AWS operations. 
+It is strongly encouraged to run AWS operations prior to Azure operations.
 - Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
 - <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
 
 #### Azure operations
-- Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
+- Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
 
 - In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
 
 ##### Set variables
-Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/) and head back to [Azure Cloud Shell](https://shell.azure.com).
+- Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/).
+- Configure the variables below in [Azure Cloud Shell](https://shell.azure.com).
 ```
 awsAccountId="<AWS account ID>"
 ```
@@ -69,7 +69,7 @@ awsAccountId="<AWS account ID>"
 # The subscription Id in which the resource group is created
 subscriptionId=$(az account show --query id -o tsv)
 
-# AWS services to import
+# AWS services to import. It supports a subset of the AWS services below. For example, you could pick just "ec2,s3".
 awsServicesToImport="ec2,s3,lambda"
 
 # Import AWS resources periodically. Allowed values are true (Default), false.
