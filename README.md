@@ -51,8 +51,45 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 
 ### Setup instructions
 It is strongly encouraged to run AWS operations prior to Azure operations.
+
+#### AWS operations
+##### Configure AWS account
+On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
+
 - Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
-- <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
+- <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved with the following command in Azure Cloud Shell.
+```
+az account show --query tenantId -o tsv
+```
+![CleanShot 2023-09-26 at 16 51 40@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/8ad77cea-31ac-4bc6-8327-428d2b0186be)
+  
+
+- Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
+
+- Perform the following operations with an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
+  - AmazonS3FullAccess
+  - AWSCloudFormationFullAccess
+  - IAMFullAccess
+![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
+   
+
+- Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
+![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
+
+
+- Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
+![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
+
+- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the previous step.
+![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
+
+
+- Leave everything as default in the next page and click "Next"
+![CleanShot 2023-09-14 at 16 29 21@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/8d2431b3-223a-4c31-959f-275d8f80b127)
+
+- Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
+![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
+
 
 #### Azure operations
 - Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
@@ -93,42 +130,6 @@ export periodicSync
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
 
-#### AWS operations
-##### Configure AWS account
-On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
-
-- Follow the last line on the terminal and download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd) and copy your <code style="color : red">PublicCloudConnectorAzureTenantId</code>. <code style="color : red">PublicCloudConnectorAzureTenantId</code> can also be retrieved following the instructions in [this link](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-find-tenant).
-![CleanShot 2023-09-22 at 11 55 58](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/49ad02aa-4d55-4816-98fc-cd90d9f324db)
-
-  
-![CleanShot 2023-09-21 at 12 17 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/2b36c41a-21d1-45ae-bea0-c04572ee1050)
-  
-
-- Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
-
-- Perform the following operations with an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
-  - AmazonS3FullAccess
-  - AWSCloudFormationFullAccess
-  - IAMFullAccess
-![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
-   
-
-- Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
-![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
-
-
-- Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
-![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
-
-- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the previous step.
-![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
-
-
-- Leave everything as default in the next page and click "Next"
-![CleanShot 2023-09-14 at 16 29 21@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/8d2431b3-223a-4c31-959f-275d8f80b127)
-
-- Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
-![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
 
 
 ##  View resources
