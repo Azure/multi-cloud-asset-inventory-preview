@@ -25,6 +25,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 
 ### Prerequisites
 
+#### AWS
 - Ensure to perform AWS operations as an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
   - AmazonS3FullAccess
   - AWSCloudFormationFullAccess
@@ -46,7 +47,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     - us-west-1
     - us-west-2  
 
-
+#### Azure
 - Ensure to perform Azure operations as an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
 
 - Supported Azure regions: 
@@ -68,10 +69,10 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 - Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
 - <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved with the following command in Azure Cloud Shell.
-```
-az account show --query tenantId -o tsv
-```
-![CleanShot 2023-09-26 at 16 51 40@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/8ad77cea-31ac-4bc6-8327-428d2b0186be)
+  ```
+  az account show --query tenantId -o tsv
+  ```
+  ![CleanShot 2023-09-26 at 16 51 40@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/8ad77cea-31ac-4bc6-8327-428d2b0186be)
   
 
 - Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
