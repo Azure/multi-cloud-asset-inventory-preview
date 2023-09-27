@@ -1,4 +1,4 @@
-##  View and query resources
+##  View and query asset inventory
 Public cloud connector and solution configuration resources will be shown under the newly created resource group "aws-asset-management-rg"; onboarded multi-cloud asset inventories will be shown under the newly create resource group called "aws_{AWS account ID}".
 
 ### Azure portal
