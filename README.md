@@ -2,9 +2,9 @@
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
 - [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
-- [View & query resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
+- [View & query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
 - [Troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#troubleshooting)
-- [Offboard resources](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#offboard-asset-inventory)
+- [Offboard asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#offboard-asset-inventory)
 - [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#support)
 - [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
