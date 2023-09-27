@@ -2,7 +2,7 @@
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
 - [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
-- [View & query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
+- [View & query asset inventory]([https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view--query-asset-inventory))
 - [Troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#troubleshooting)
 - [Offboard asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#offboard-asset-inventory)
 - [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#support)
@@ -133,13 +133,13 @@ sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/m
 ```
 
 ## View & query asset inventory
-Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
+Please see [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
 
 ## Troubleshooting
-Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/troubleshooting.md).
+Please see [troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/troubleshooting.md).
 
 ## Offboard asset inventory
-Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/offboard-asset-inventory.md).
+Please see [offboard asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/offboard-asset-inventory.md).
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
