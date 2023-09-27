@@ -132,13 +132,13 @@ export periodicSync
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
 
-## View & query resources
+## View & query asset inventory
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
 
 ## Troubleshooting
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/troubleshooting.md).
 
-## Offboard resources
+## Offboard asset inventory
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/offboard-asset-inventory.md).
 
 ## Support
