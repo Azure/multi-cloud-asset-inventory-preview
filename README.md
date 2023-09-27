@@ -24,6 +24,13 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 ## Getting started
 
 ### Prerequisites
+
+- Ensure to perform AWS operations as an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
+  - AmazonS3FullAccess
+  - AWSCloudFormationFullAccess
+  - IAMFullAccess
+![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
+
 - Supported AWS account type: single account
   
   - Organization account will be supported in the future release.
@@ -38,6 +45,9 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     - us-east-2
     - us-west-1
     - us-west-2  
+
+
+- Ensure to perform Azure operations as an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
 
 - Supported Azure regions: 
     - East US
@@ -66,12 +76,6 @@ az account show --query tenantId -o tsv
 
 - Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
 
-- Perform the following operations with an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
-  - AmazonS3FullAccess
-  - AWSCloudFormationFullAccess
-  - IAMFullAccess
-![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
-   
 
 - Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
 ![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
@@ -92,8 +96,6 @@ az account show --query tenantId -o tsv
 
 
 #### Azure operations
-- Perform the following operations with an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
-
 - In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
 
 ##### Set variables
@@ -129,93 +131,6 @@ export periodicSync
 ```
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
 ```
-
-
-
-##  View resources
-Public cloud connector and solution configuration resources will be shown under the newly created resource group "aws-asset-management-rg"; onboarded multi-cloud asset inventories will be shown under the newly create resource group called "aws_{AWS account ID}".
-
-### Azure portal
-- Wait for 1 minute and head over to the resource group "aws-asset-management-rg", select "Show hidden type" to check for the public cloud connector resource.
-![CleanShot 2023-09-25 at 16 14 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/6c41c101-4db1-4814-ae49-b10978ea6f50)
-
-- Head to the resource group "aws_[AWS account ID]" to check for onboarded EC2 instances. The status will show as below.
-![CleanShot 2023-09-20 at 14 11 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/9d791892-96c9-4040-bd08-d40175488900)
-![CleanShot 2023-09-20 at 14 12 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/fbedbea2-f953-4d3b-8ebd-22576eb7b91c)
-
-
-- Stay the resource group "aws_[AWS account ID]", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
-![CleanShot 2023-09-25 at 16 16 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/da0b0ae4-7d1c-4e04-ab70-02ec8d5a85f9)
-
-#### Azure Resource Graph
-- Azure Resource Graph is an Azure service designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment. For more information, please check [this link](https://learn.microsoft.com/en-us/azure/governance/resource-graph/overview).
-  
-- Head to [Azure Resource Graph Explorer](https://ms.portal.azure.com/#view/HubsExtension/ArgQueryBlade).
-![CleanShot 2023-09-25 at 16 13 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/19329844-a0b5-4f03-ae4a-9acc13be8a34)
-
-
-##### Scenario: query all onboarded multi-cloud asset inventories.
-```
-resources
-| where subscriptionId == "<subscription ID>"
-| where resourceGroup == "aws_<AWS account ID>"
-| where id contains "microsoft.awsconnector"
-```
-
-
-##### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
-```
-awsresources
-| where ['type'] contains "microsoft.awsconnector/ec2instances"
-```
-```
-resources 
-| where subscriptionId == "<yoursubscriptionid>"
-| where ['type'] contains "microsoft.hybridcompute" or ['type'] contains "microsoft.compute"
-```
-
-
-##### Scenario: query for all storage accounts and their creation time
-```
-resources 
-| where subscriptionId =="<yoursubscriptionid>" 
-| where ['type'] contains "microsoft.awsconnector/S3" or ['type'] contains "microsoft.storage/storageaccount" 
-| extend storageAccountCreationTime=iff(type contains "aws", properties.awsProperties.creationDate, properties.creationTime), cloud=iff(['type'] contains "aws", "aws", "azure") 
-| project cloud, subscriptionId, resourceGroup, name, storageAccountCreationTime 
-```
-
-##### Scenario: query for all resources with certain tag 
-```
-resources 
-| extend awsTags=iff(type contains "microsoft.awsconnector", properties.awsTags, ""), azureTags=tags 
-| where awsTags contains "<yourTagValue>" or azureTags contains "<yourTagValue>" 
-| project subscriptionId, resourceGroup, name, azureTags, awsTags 
-```
-
-### CLI
-### View all onboarded multi-cloud asset inventories
-```
-az resource list -g aws_${awsAccountId} -o table
-```
-
-## Troubleshooting
-This step can be used when you are not seeing AWS resources that should be onboarded showing in Azure.
-```
-az rest --method get --url https://management.azure.com/subscriptions/${subscriptionId}/resourceGroups/aws-asset-management-rg/providers/Microsoft.HybridConnectivity/publicCloudConnectors/aws-connector-${awsAccountId}/providers/Microsoft.HybridConnectivity/solutionConfigurations/aws-asset-management?api-version=2023-04-01-preview --verbose
-```
-
-## Clean up resources
-
-### Azure operations
-Clean up all the public cloud connector, the solution configuration and all onboarded multi-cloud asset inventories.
-```
-sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh
-```
-
-### AWS operations
-Clean up the stack.
-![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
-
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
