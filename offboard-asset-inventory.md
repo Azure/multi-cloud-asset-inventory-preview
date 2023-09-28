@@ -5,7 +5,7 @@ Clean up all the public cloud connector, the solution configuration and all onbo
 
 ### Download the offboarding scripts
 ```
-wget https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh chmod +x ./AssetManagementOffboardScript.sh
+wget https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh; chmod +x ./AssetManagementOffboardScript.sh
 ```
 ### Execute the offboarding scripts
 ```
