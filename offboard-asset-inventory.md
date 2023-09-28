@@ -14,5 +14,5 @@ sh ./AssetManagementOffboardScript.sh
 
 ### AWS operations
 Clean up the stack.
+![CleanShot 2023-09-28 at 14 58 36@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c94d6eee-18a7-4d3f-94db-3ee9e81c8cba)
 
-<screenshot pending>
