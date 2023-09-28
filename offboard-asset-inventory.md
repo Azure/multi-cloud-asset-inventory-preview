@@ -1,11 +1,18 @@
-## Offboard asset inventory
+# Offboard asset inventory
 
-### Azure operations
+## Azure operations
 Clean up all the public cloud connector, the solution configuration and all onboarded multi-cloud asset inventories.
+
+### Download the offboarding scripts
 ```
-sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh
+wget https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOffboardScript.sh chmod +x ./AssetManagementOffboardScript.sh
+```
+### Execute the offboarding scripts
+```
+sh ./AssetManagementOffboardScript.sh
 ```
 
 ### AWS operations
 Clean up the stack.
-![CleanShot 2023-09-20 at 14 35 56](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/be7dba58-202c-4345-8435-f0db4d627c92)
+
+<screenshot pending>
