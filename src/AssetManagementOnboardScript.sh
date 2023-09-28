@@ -145,10 +145,10 @@ createResourceGroup()
     
     az group create -n $rgName -l $azureLocation --tags "multi-cloud-inventory" 1>/dev/null
     if [ $? -ne 0 ]; then
-		echo "FATAL: resource group: '$rgName' creation failed. Please ensure that you have the required permissions to create resource groups."
+        echo "FATAL: resource group: '$rgName' creation failed. Please ensure that you have the required permissions to create resource groups."
 
         exit 1
-	fi
+    fi
 
     echo "INFO: Resource group: '$rgName' is created successfully."
 }
@@ -160,6 +160,10 @@ echo
 
 # Set the account
 az account set -s $subscriptionId
+if [ $? -ne 0 ]; then
+    echo "FATAL: Invalid subscription: $subscriptionId"
+    exit 1
+fi
 
 # Read configuration values
 readConfiguration
@@ -181,7 +185,7 @@ createAWSConnector
 createSolutionConfiguration
 
 # read tenantId
-azure_user_tenant_id=$(az account show | grep -o '"tenantId": "[^"]*' | cut -d'"' -f4)
+azure_user_tenant_id=$(az account show --query tenantId -o tsv)
 
 # resource group name where AWS resources will be imported
 aws_resource_group_name="/subscriptions/$subscriptionId/resourceGroups/aws_$awsAccountId"
