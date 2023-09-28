@@ -13,11 +13,11 @@ Multi-cloud asset inventory management allows you to see an up-to-date view of y
 
 With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure.
 
-- Please do <code style="color : red">NOT</code> try this feature in production environments.
+- Please do `NOT` try this feature in production environments.
   
-- Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
+- Please do `NOT` try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
 
-- Please do <code style="color : red">NOT</code> try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
+- Please do `NOT` try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
 
 - Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you will see a duplicate `Microsoft.HybridCompute` resource (with a different resource ID) in multi-cloud inventory.
 
@@ -48,7 +48,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
     - us-west-2  
 
 #### Azure
-- Ensure to perform Azure operations as an Azure user with the <code style="color : red">Contributor</code> role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
+- Ensure to perform Azure operations as an Azure user with the `Contributor` role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
 
 - Supported Azure regions: 
     - East US
@@ -67,8 +67,8 @@ It is strongly encouraged to run AWS operations prior to Azure operations.
 ##### Configure AWS account
 On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
 
-- Download the <code style="color : red">AWS CloudFormation template</code> from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
-- <code style="color : red">PublicCloudConnectorAzureTenantId</code> can be retrieved with the following command in Azure Cloud Shell.
+- Download the `AWS CloudFormation template` from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
+- `PublicCloudConnectorAzureTenantId` can be retrieved with the following command in Azure Cloud Shell.
   ```
   az account show --query tenantId -o tsv
   ```
