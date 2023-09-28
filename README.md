@@ -128,6 +128,11 @@ export periodicSyncTime
 export periodicSync
 ```
 
+#### Download the onboarding scripts
+```
+wget https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/src/AssetManagementOnboardScript.sh chmod +x ./AssetManagementOnboardScript.sh
+```
+
 ##### Execute the onboarding scripts
 ```
 sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
