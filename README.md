@@ -22,7 +22,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 - Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you will see a duplicate `Microsoft.HybridCompute` resource (with a different resource ID) in multi-cloud inventory.
 
 ## Getting started
-Click [here](https://pcaso.blob.core.windows.net/pp1/multicloud-asset-inventory-onboarding.mp4) to watch the tutorial video!
+![Video](https://img.youtube.com/vi/GewFlrndwuE/maxresdefault.jpg)(https://www.youtube.com/watch?v=GewFlrndwuE)
 
 ### Prerequisites
 
