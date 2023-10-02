@@ -22,6 +22,7 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 - Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you will see a duplicate `Microsoft.HybridCompute` resource (with a different resource ID) in multi-cloud inventory.
 
 ## Getting started
+[![Video](https://img.youtube.com/vi/GewFlrndwuE/maxresdefault.jpg)](https://www.youtube.com/watch?v=GewFlrndwuE)
 
 ### Prerequisites
 
@@ -30,7 +31,8 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
   - AmazonS3FullAccess
   - AWSCloudFormationFullAccess
   - IAMFullAccess
-![CleanShot 2023-09-21 at 14 14 04](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e8b5a36a-3815-4501-abc2-c497a3fa671e)
+![CleanShot 2023-09-28 at 13 50 03@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/d0522c44-9591-4a4e-bfe0-b77e14ed56d7)
+
 
 - Supported AWS account type: single account
   
@@ -49,6 +51,9 @@ With this private preview feature, you can import AWS EC2 instances, S3 buckets 
 
 #### Azure
 - Ensure to perform Azure operations as an Azure user with the `Contributor` role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
+![CleanShot 2023-09-28 at 14 04 31](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e5e6537c-d3f1-4528-9f7e-bb78c36f3ab4)
+
+
 
 - Supported Azure regions: 
     - East US
@@ -72,20 +77,17 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
   ```
   az account show --query tenantId -o tsv
   ```
-  ![CleanShot 2023-09-26 at 16 51 40@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/8ad77cea-31ac-4bc6-8327-428d2b0186be)
-  
+  ![CleanShot 2023-09-28 at 13 55 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/554b8f16-d3d1-4bc2-af71-2a8d987d6ba1)
 
 - Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
 
-
 - Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
-![CleanShot 2023-09-20 at 14 06 09](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/7c4406ee-cc01-448e-97a8-6d89cc3ee358)
-
+![CleanShot 2023-09-28 at 14 02 13@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c905ed32-0fa5-47b7-a7f6-2ed4062182fc)
 
 - Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
 ![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
 
-- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the previous step.
+- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the first step.
 ![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
 
 
@@ -128,9 +130,14 @@ export periodicSyncTime
 export periodicSync
 ```
 
+#### Download the onboarding scripts
+```
+wget https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/src/AssetManagementOnboardScript.sh; chmod +x ./AssetManagementOnboardScript.sh
+```
+
 ##### Execute the onboarding scripts
 ```
-sh https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh
+sh ./AssetManagementOnboardScript.sh
 ```
 
 ## View and query asset inventory
