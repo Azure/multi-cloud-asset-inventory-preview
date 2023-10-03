@@ -86,11 +86,16 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Set the account
-az account set -s $subscriptionId
+# Start of the script execution
+echo
+echo "Welcome to the offboarding script for Microsoft Azure Multi-Cloud Asset Management."
+echo
 
 # Read configuration values
 readConfiguration
+
+# Set the account
+az account set -s $subscriptionId
 
 # Initialize configuration values
 initConfiguration

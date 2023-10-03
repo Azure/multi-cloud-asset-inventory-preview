@@ -155,8 +155,11 @@ createResourceGroup()
 
 # Start of the script execution
 echo
-echo "Asset Management Onboard script"
+echo "Welcome to the onboarding script for Microsoft Azure Multi-Cloud Asset Management."
 echo
+
+# Read configuration values
+readConfiguration
 
 # Set the account
 az account set -s $subscriptionId
@@ -164,9 +167,6 @@ if [ $? -ne 0 ]; then
     echo "FATAL: Invalid subscription: $subscriptionId"
     exit 1
 fi
-
-# Read configuration values
-readConfiguration
 
 # Initialize configuration values
 initConfiguration
