@@ -96,6 +96,10 @@ readConfiguration
 
 # Set the account
 az account set -s $subscriptionId
+if [ $? -ne 0 ]; then
+    echo "FATAL: Invalid subscription: $subscriptionId"
+    exit 1
+fi
 
 # Initialize configuration values
 initConfiguration
