@@ -3,24 +3,27 @@ Public cloud connector and solution configuration resources will be shown under 
 
 ### Azure portal
 - Wait for 1 minute and head over to the resource group "aws-asset-management-rg", select "Show hidden type" to check for the public cloud connector resource.
-![CleanShot 2023-09-25 at 16 14 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/6c41c101-4db1-4814-ae49-b10978ea6f50)
+![CleanShot 2023-10-05 at 16 21 17@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/d58ca947-c4af-436e-b5e0-628b1be5ed56)
+
 
 - Head to the resource group "aws_[AWS account ID]" to check for onboarded EC2 instances. The status will show as below.
-![CleanShot 2023-09-20 at 14 11 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/9d791892-96c9-4040-bd08-d40175488900)
-![CleanShot 2023-09-20 at 14 12 55](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/fbedbea2-f953-4d3b-8ebd-22576eb7b91c)
+![CleanShot 2023-10-05 at 16 22 57@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/73b505f5-a8ae-4c3a-a710-20c5a0732d64)
+![CleanShot 2023-10-05 at 16 24 04@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/84395229-0a33-49d2-bf51-ba6baaf51201)
 
 
 - Stay the resource group "aws_[AWS account ID]", select "Show hidden type" to view onboarded S3 buckets and Lambda functions.
-![CleanShot 2023-09-25 at 16 16 49](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/da0b0ae4-7d1c-4e04-ab70-02ec8d5a85f9)
+![CleanShot 2023-10-05 at 16 26 43@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/34b3b86d-fa95-42cd-aa04-f7073777d2be)
+
 
 #### Azure Resource Graph
 - Azure Resource Graph is an Azure service designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment. For more information, please check [this link](https://learn.microsoft.com/en-us/azure/governance/resource-graph/overview).
   
 - Head to [Azure Resource Graph Explorer](https://ms.portal.azure.com/#view/HubsExtension/ArgQueryBlade).
-![CleanShot 2023-09-25 at 16 13 33](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/19329844-a0b5-4f03-ae4a-9acc13be8a34)
+![CleanShot 2023-10-05 at 16 29 46@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/1e8e1f31-3cb4-4525-8cfd-21d263a5e71a)
 
 
-##### Scenario: query all onboarded multi-cloud asset inventories.
+
+- Scenario: query all onboarded multi-cloud asset inventories.
 ```
 resources
 | where subscriptionId == "<subscription ID>"
@@ -29,7 +32,7 @@ resources
 ```
 
 
-##### Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
+- Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
 ```
 awsresources
 | where ['type'] contains "microsoft.awsconnector/ec2instances"
@@ -40,7 +43,7 @@ resources
 | where ['type'] contains "microsoft.hybridcompute" or ['type'] contains "microsoft.compute"
 ```
 
-##### Scenario: query for all virtual machines in Azure and AWS along with their instance size
+- Scenario: query for all virtual machines in Azure and AWS along with their instance size
 ```
 resources 
 | where (['type'] == "microsoft.compute/virtualmachines") 
@@ -51,7 +54,7 @@ resources
 | project subscriptionId, cloud, resourceGroup, id, size, azureTags, awsTags, properties
 ```
 
-##### Scenario: query for all storage accounts and their creation time
+- Scenario: query for all storage accounts and their creation time
 ```
 resources 
 | where subscriptionId =="<yoursubscriptionid>" 
@@ -60,7 +63,7 @@ resources
 | project cloud, subscriptionId, resourceGroup, name, storageAccountCreationTime 
 ```
 
-##### Scenario: query for all resources with certain tag 
+- Scenario: query for all resources with certain tag 
 ```
 resources 
 | extend awsTags=iff(type contains "microsoft.awsconnector", properties.awsTags, ""), azureTags=tags 
