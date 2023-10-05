@@ -9,9 +9,9 @@
 - [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
 ## Overview
-Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure. This will enable you to see all cloud resources in a single place. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we pull all the metadata from the source cloud along with tags in the source cloud. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory.  Asset Management will scan your AWS account at configured periodic interval default to 1 hour. to ensure we have a complete, correct view represented in Azure. Onboarded multi-cloud asset inventories are just read-only resources.
+Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud assets. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we include all the metadata from the source cloud. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory. Asset Management will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. The imported assets from Multi-cloud asset inventory are read-only in Azure. 
 
-With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure.
+With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure. We only support AWS today.
 
 - Please do `NOT` try this feature in production environments.
   
