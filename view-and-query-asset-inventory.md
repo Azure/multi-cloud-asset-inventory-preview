@@ -40,6 +40,17 @@ resources
 | where ['type'] contains "microsoft.hybridcompute" or ['type'] contains "microsoft.compute"
 ```
 
+##### Scenario: query for all virtual machines in Azure and AWS along with their instance size
+```
+resources 
+| where subscriptionId == "<yoursubscriptionid>"
+| where (['type'] == "microsoft.compute/virtualmachines") 
+| union (awsresources | where (type == "microsoft.awsconnector/ec2instances" and subscriptionId == "3ced23ce-e34c-4455-a687-9f183e1ac302"))
+| extend cloud=iff(type contains "ec2", "AWS", "Azure")
+| extend awsTags=iff(type contains "microsoft.awsconnector", properties.awsTags, ""), azureTags=tags
+| extend size=iff(type contains "microsoft.compute", properties.hardwareProfile.vmSize, properties.awsProperties.instanceType.value)
+| project subscriptionId, cloud, resourceGroup, id, size, azureTags, awsTags, properties
+```
 
 ##### Scenario: query for all storage accounts and their creation time
 ```
