@@ -56,8 +56,8 @@ Check out this demo on how to set up Multi-cloud asset inventory (step-by-step i
 
 
 
-- Supported Azure regions: 
-    - East US
+- Supported Azure regions to create your Public Cloud Connector: 
+    - East US, West Central US, West Europe, Canada Central
 
 - Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/) and use `bash`.
 
