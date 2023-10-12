@@ -86,17 +86,17 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 ![CleanShot 2023-09-28 at 14 02 13@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c905ed32-0fa5-47b7-a7f6-2ed4062182fc)
 
 - Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
-![CleanShot 2023-09-15 at 08 06 59@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/5f6ebbaf-9d02-418a-b74e-31967ded6a98)
+![templateready](./images/templateready.jpg)
 
 - Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the first step.
-![CleanShot 2023-09-15 at 08 10 55@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/886d6894-48e2-46c5-9a1a-33b9bd7c601d)
+![stackname](./images/stackname.jpg)
 
 
 - Leave everything as default in the next page and click "Next"
-![CleanShot 2023-09-14 at 16 29 21@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/8d2431b3-223a-4c31-959f-275d8f80b127)
+![clicknext](./images/clicknext.jpg)
 
 - Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
-![CleanShot 2023-09-14 at 16 29 51@2x](https://github.com/Azure/azure-arc-publicclouds-preview/assets/35560783/6fad050c-1848-4432-8d98-5de81d22d35f)
+![agree](./images/agreetoterm.jpg)
 
 
 #### Azure operations
