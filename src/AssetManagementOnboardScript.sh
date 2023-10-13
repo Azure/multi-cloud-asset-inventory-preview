@@ -194,7 +194,7 @@ aws_resource_group_name="/subscriptions/$subscriptionId/resourceGroups/aws_$awsA
 echo
 echo "                      !!!!!!!! Action required !!!!!!!!"
 echo
-echo "PLEASE UPLOAD THE AWS CLOUDFORMATION TEMPLATE from https://aka.ms/AwsAssetManagementProd TO AWS ACCOUNT $awsAccountId" 
+echo "If you have not uploaded the AWS cloud formation template yet, PLEASE UPLOAD THE AWS CLOUDFORMATION TEMPLATE from https://aka.ms/AwsAssetManagementProd TO AWS ACCOUNT $awsAccountId" 
 echo
 echo "Please use PublicCloudConnectorAzureTenantId as $azure_user_tenant_id"
 echo
