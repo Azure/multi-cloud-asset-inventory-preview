@@ -100,7 +100,7 @@ On the AWS side, a CloudFormation template needs to be uploaded to create the re
 
 
 #### Azure operations
-- In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in.
+- In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in and the commands are in `bash`.
 
 ##### Set variables
 - Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/).
