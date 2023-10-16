@@ -27,8 +27,10 @@ Public cloud connector and solution configuration resources will be shown under 
 ```
 resources
 | where subscriptionId == "<subscription ID>"
-| where resourceGroup == "aws_<AWS account ID>"
-| where id contains "microsoft.awsconnector"
+| where id contains "microsoft.awsconnector" 
+| union (awsresources | where type == "microsoft.awsconnector/ec2instances" and subscriptionId =="<subscription ID>")
+| extend awsTags= properties.awsTags, azureTags = ['tags']
+| project subscriptionId, resourceGroup, type, id, awsTags, azureTags, properties 
 ```
 
 
