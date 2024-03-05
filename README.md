@@ -49,8 +49,16 @@ Check out this demo on how to set up Multi-cloud asset inventory (step-by-step i
     - us-east-2
     - us-west-1
     - us-west-2
+    - ca-central-1
     - ap-southeast-1
     - ap-southeast-2
+    - ap-northeast-1
+    - ap-northeast-3
+    - eu-west-1
+    - eu-west-2
+    - eu-central-1
+    - eu-north-1
+    - sa-east-1
 
 #### Azure
 - Ensure to perform Azure operations as an Azure user with the `Contributor` role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
