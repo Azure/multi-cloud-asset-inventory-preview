@@ -2,11 +2,9 @@
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
 - [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
+- [Multi-cloud Inventory](src/Inventory-Details.md)
+- [Multi-cloud Arc Onboarding](src/Arc-onboarding-details.md)
 - [View and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
-- [Troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#troubleshooting)
-- [Offboard asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#offboard-asset-inventory)
-- [Support](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#support)
-- [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
 ## Overview
 The Microsoft Multi-cloud Connector allows customers to connect their non-Azure public cloud resources to Azure, providing customers with a centralized source for management and governance. Today, the Connector supports AWS environments but we plan to expand to other clouds in the future. The Multi-cloud Connector supports Multi-cloud solutions:
@@ -40,12 +38,16 @@ In AWS, we will scan for resources in the following regions:
 For EC2 instances that already have the Arc agent, please do not use the inventory solution. This will create a duplicate record of the EC2 instance in Azure. We are planning on supporting existing EC2 VMs with the Arc agent installed and just reusing the existing resource for inventory. 
 
 ## Get started today on the Azure portal
+See the portal instructions [here](src/multi-cloud-portal-create.md)
 
 ## Connector & Authentication
+Learn more [here](src/Connector-details.md)
 
 ## Inventory solution
+Learn more [here](src/Inventory-Details.md)
 
 ## Arc onboarding solution
+Learn more [here](src/Arc-onboarding-details.md)
 
 ## View and query asset inventory
 Please see [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
