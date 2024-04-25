@@ -11,7 +11,7 @@ The Microsoft Multi-cloud Connector allows customers to connect their non-Azure 
 * Multi-cloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
 * Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
-## Pre-requites
+## Prerequisite
 You need to have the following permissions in AWS to create the connector and solutions.  Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
 For the Connector & Inventory solution: 
   - AmazonS3FullAccess
