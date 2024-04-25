@@ -37,20 +37,12 @@ In AWS, we will scan for resources in the following regions:
 ## Unsupported scenarios
 For EC2 instances that already have the Arc agent, please do not use the inventory solution. This will create a duplicate record of the EC2 instance in Azure. We are planning on supporting existing EC2 VMs with the Arc agent installed and just reusing the existing resource for inventory. 
 
-## Get started today on the Azure portal
-See the portal instructions [here](src/multi-cloud-portal-create.md)
-
-## Connector & Authentication
-Learn more [here](src/Connector-details.md)
-
-## Inventory solution
-Learn more [here](src/Inventory-Details.md)
-
-## Arc onboarding solution
-Learn more [here](src/Arc-onboarding-details.md)
-
-## View and query asset inventory
-Please see [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
+## Next Steps:
+- [Get Started with Azure Portal](src/multi-cloud-portal-create.md)
+- [Learn more about the Connector and Auth](src/Connector-details.md)
+- [Learn more about Inventory Solution](src/Inventory-Details.md)
+- [Learn more about Arc onboarding solution](src/Arc-onboarding-details.md)
+- [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
