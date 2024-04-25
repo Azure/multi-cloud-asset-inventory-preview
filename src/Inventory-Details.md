@@ -67,7 +67,7 @@ If do not want the Inventory solution to scan your account, you can turn off the
 Please see [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
 
 ## Offboarding
-If you delete the Connector or the Inventory solution, your AWS resources represented in Azure will still remain. You can clean them up by browsing to the resource group under aws_yourAwsAccountId and deleting that resource group. After the solution is deleted, the periodic syncs will stop and your resources will not be updated in Azure. It is recommeded to clean them up so you do not look at stale inventory data. 
+If you delete the Connector or the Inventory solution, your AWS resources represented in Azure will still remain. You can clean them up by browsing to the resource group under aws_yourAwsAccountId and deleting that resource group. After the solution is deleted, the periodic syncs will stop and your resources will not be updated in Azure. It is recommended to clean them up so you do not look at stale inventory data. 
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
