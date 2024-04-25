@@ -42,7 +42,7 @@ For EC2 instances that already have the Arc agent, please do not use the invento
 - [Learn more about the Connector and Auth](src/Connector-details.md)
 - [Learn more about Inventory Solution](src/Inventory-Details.md)
 - [Learn more about Arc onboarding solution](src/Arc-onboarding-details.md)
-- [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
+- [View and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md)
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
