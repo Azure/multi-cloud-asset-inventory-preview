@@ -56,13 +56,13 @@ resources
 | project subscriptionId, cloud, resourceGroup, id, size, azureTags, awsTags, properties
 ```
 
-- Scenario: query for all storage accounts and their creation time
+- Scenario: query for all functions across Azure and AWS
 ```
-resources 
-| where subscriptionId =="<yoursubscriptionid>" 
-| where ['type'] contains "microsoft.awsconnector/S3" or ['type'] contains "microsoft.storage/storageaccount" 
-| extend storageAccountCreationTime=iff(type contains "aws", properties.awsProperties.creationDate, properties.creationTime), cloud=iff(['type'] contains "aws", "aws", "azure") 
-| project cloud, subscriptionId, resourceGroup, name, storageAccountCreationTime 
+resources
+| where (type == 'microsoft.web/sites' and ['kind'] contains 'functionapp') or type == "microsoft.awsconnector/lambdafunctionconfigurations"
+| extend cloud=iff(type contains "awsconnector", "AWS", "Azure")
+| extend functionName=iff(cloud=="Azure", properties.name,properties.awsProperties.functionName), state=iff(cloud=="Azure", properties.state, properties.awsProperties.state), lastModifiedTime=iff(cloud=="Azure", properties.lastModifiedTimeUtc,properties.awsProperties.lastModified), location=iff(cloud=="Azure", location,properties.awsRegion),  tags=iff(cloud=="Azure", tags, properties.awsTags)
+| project cloud, functionName, lastModifiedTime, location, tags
 ```
 
 - Scenario: query for all resources with certain tag 
