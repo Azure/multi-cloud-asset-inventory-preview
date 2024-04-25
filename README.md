@@ -1,7 +1,7 @@
 # Multi-cloud Connector
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
-- [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
+- [Getting started with Portal](src/multi-cloud-portal-create.md)
 - [Multi-cloud Inventory](src/Inventory-Details.md)
 - [Multi-cloud Arc Onboarding](src/Arc-onboarding-details.md)
 - [View and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
