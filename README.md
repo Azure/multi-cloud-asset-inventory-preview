@@ -1,4 +1,4 @@
-# Multi-cloud Asset Inventory Management
+# Multi-cloud Connector
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
 - [Getting started](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#getting-started)
@@ -9,156 +9,46 @@
 - [Code of conduct](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#code-of-conduct)
 
 ## Overview
-Multi-cloud asset inventory management allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud assets. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, we include all the metadata from the source cloud. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory. Asset Management will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. The imported assets from Multi-cloud asset inventory are read-only in Azure. 
+The Microsoft Multi-cloud Connector allows customers to connect their non-Azure public cloud resources to Azure, providing customers with a centralized source for management and governance. Today, the Connector supports AWS environments but we plan to expand to other clouds in the future. The Multi-cloud Connector supports Multi-cloud solutions:
+* Multi-cloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
+* Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
-With this private preview feature, you can import AWS EC2 instances, S3 buckets and Lambda functions to Azure as multi-cloud asset inventories. Periodically (default to 1 hour) we scan for new resources created in your AWS account and import them into Azure. We only support AWS today.
-
-- Please do `NOT` try this feature in production environments.
-  
-- Please do `NOT` try this feature if you are already using a connector from Microsoft Defender for Cloud (MDC) to onboard your AWS/GCP resources to Azure Arc in production environments.
-
-- Please do `NOT` try this feature if you are already using a connector from [Azure Arc Public Cloud At-scale Onboarding](https://github.com/Azure/azure-arc-publicclouds-preview).
-
-- Arc-enabled EC2 Instance: If your AWS EC2 instance is already onboarded to Arc as an Arc-enabled server, you will see a duplicate `Microsoft.HybridCompute` resource (with a different resource ID) in multi-cloud inventory.
-
-## Getting started
-Check out this demo on how to set up Multi-cloud asset inventory (step-by-step instructions are below):
-[![Video](https://img.youtube.com/vi/GewFlrndwuE/maxresdefault.jpg)](https://www.youtube.com/watch?v=GewFlrndwuE)
-
-### Prerequisites
-
-#### AWS
-- Ensure to perform AWS operations as an AWS user with the following permissions. Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
+## Pre-requites
+You need to have the following permissions in AWS to create the connector and solutions.  Please refer to [this document](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_change-permissions.html#users_change_permissions-add-console) for how to grant  permissions to a user should you have any question.
+For the Connector & Inventory solution: 
   - AmazonS3FullAccess
   - AWSCloudFormationFullAccess
   - IAMFullAccess
 ![CleanShot 2023-09-28 at 13 50 03@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/d0522c44-9591-4a4e-bfe0-b77e14ed56d7)
 
+For the Arc Onboarding solution, you also need the following: 
+  - AmazonEC2FullAccess permissions
+  - EC2 instances need to have the SSM agent installed. The IAM role of `ArcForServerSSMInstanceProfile` will be generated during the onboarding process.
 
-- Supported AWS account type: single account
-  
-  - Organization account will be supported in the future release.
+In Azure, to create the Connector and Solutions, you need to have write access to the Resource Group you are placing those resources in. If this is the first time you are using the service, you will also need to register the following resource providers which requires Contributor access on the subscription:
+- Microsoft.HybridConnectivity
+- Microsoft.AwsConnector
 
-- Supported AWS resource types: 
-    - EC2
-    - S3 Bucket
-    - Lambda
+## Supported Regions
+In Azure, you will need to create the connector and solution configurations in one of the supported Azure regions below: 
+- West US 2, South Central US, UK South, Southeast Asia, West Europe, Esat US, Australia East, East US 2, North Europe, West US 3, Sweden Central, Finland Central
 
-- Supported AWS regions: only AWS resources in these AWS regions will be onboarded to Azure.
-    - us-east-1
-    - us-east-2
-    - us-west-1
-    - us-west-2
-    - ca-central-1
-    - ap-southeast-1
-    - ap-southeast-2
-    - ap-northeast-1
-    - ap-northeast-3
-    - eu-west-1
-    - eu-west-2
-    - eu-central-1
-    - eu-north-1
-    - sa-east-1
+In AWS, we will scan for resources in the following regions: 
+- us-east-1, us-east-2, us-west-1, us-west-2, ca-central-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, ap-northeast-3, eu-west-1, eu-west-2, eu-central-1, eu-north-1, sa-east-1
 
-#### Azure
-- Ensure to perform Azure operations as an Azure user with the `Contributor` role at the subscription scope. Please refer to [this document](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=delegate-condition) for how to assign roles in Azure portal.
-![CleanShot 2023-09-28 at 14 04 31](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/e5e6537c-d3f1-4528-9f7e-bb78c36f3ab4)
+## Unsupported scenarios
+For EC2 instances that already have the Arc agent, please do not use the inventory solution. This will create a duplicate record of the EC2 instance in Azure. We are planning on supporting existing EC2 VMs with the Arc agent installed and just reusing the existing resource for inventory. 
 
+## Get started today on the Azure portal
 
+## Connector & Authentication
 
-- Supported Azure regions to create your Public Cloud Connector: 
-    - East US, West Central US, West Europe, Canada Central
+## Inventory solution
 
-- Login into [Azure Cloud Shell](https://portal.azure.com/#cloudshell/) and use `bash`.
-
-    ```
-    az login
-    az account set -s <subscription name/ID>
-    ```
-
-### Setup instructions
-It is strongly encouraged to run AWS operations prior to Azure operations.
-
-#### AWS operations
-##### Configure AWS account
-On the AWS side, a CloudFormation template needs to be uploaded to create the required identity provider and role permissions to complete the onboarding process.
-
-- Download the `AWS CloudFormation template` from [https://aka.ms/AwsAssetManagementProd](https://aka.ms/AwsAssetManagementProd)
-- `PublicCloudConnectorAzureTenantId` can be retrieved with the following command in Azure Cloud Shell.
-  ```
-  az account show --query tenantId -o tsv
-  ```
-  ![CleanShot 2023-09-28 at 13 55 59](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/554b8f16-d3d1-4bc2-af71-2a8d987d6ba1)
-
-- Move to [AWS management console](https://aws.amazon.com/console) to complete the AWS CloudFormation template upload process.
-
-- Deploy the CloudFormation template by going to AWS management console --> CloudFormation --> Stacks --> Create Stacks.
-![CleanShot 2023-09-28 at 14 02 13@2x](https://github.com/Azure/multi-cloud-asset-inventory-preview/assets/35560783/c905ed32-0fa5-47b7-a7f6-2ed4062182fc)
-
-- Select "Template is ready". --> "Upload a template file" --> "Choose file" --> Upload the template file, AwsAssetManagementProd.template, downloaded from the previous step.
-![templateready](./images/templateready.jpg)
-
-- Provide a stack name " Stack-AssetMgmtSingleAcct" and input the Azure AD tenant ID retrieved from the first step.
-![stackname](./images/stackname.jpg)
-
-
-- Leave everything as default in the next page and click "Next"
-![clicknext](./images/clicknext.jpg)
-
-- Confirm all information is correct and check "I acknowledge ..." to submit the stack creation request.
-![agree](./images/agreetoterm.jpg)
-
-
-#### Azure operations
-- In cloud shell, let's start by creating a set of environment variables that will be used in the onboarding script. Note you will need to fill in the parameters in and the commands are in `bash`.
-
-##### Set variables
-- Retrieve AWS account ID from the top right corner of the [AWS management console](https://aws.amazon.com/console/).
-- Configure the variables below in [Azure Cloud Shell](https://shell.azure.com).
-```
-awsAccountId="<AWS account ID>"
-```
-```
-# The subscription Id in which the resource group is created
-subscriptionId=$(az account show --query id -o tsv)
-
-# AWS services to import. It supports a subset of the AWS services below. For example, you could pick just "ec2,s3".
-awsServicesToImport="ec2,s3,lambda"
-
-# Import AWS resources periodically. Allowed values are true (Default), false.
-periodicSync=true
-
-# Frequency in hours, at which Azure imports the AWS resources. Allowed values are 1 (Default), 2, 4, 6, 12, 24.
-periodicSyncTime=1
-```
-
-##### Export variables
-```
-export awsAccountId
-export subscriptionId
-export awsServicesToImport
-export periodicSyncTime
-export periodicSync
-```
-
-#### Download the onboarding scripts
-```
-wget https://raw.githubusercontent.com/Azure/multi-cloud-asset-inventory-preview/main/src/AssetManagementOnboardScript.sh; chmod +x ./AssetManagementOnboardScript.sh
-```
-
-##### Execute the onboarding scripts
-```
-sh ./AssetManagementOnboardScript.sh
-```
+## Arc onboarding solution
 
 ## View and query asset inventory
 Please see [view and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/view-and-query-asset-inventory.md).
-
-## Troubleshooting
-Please see [troubleshooting](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/troubleshooting.md).
-
-## Offboard asset inventory
-Please see [offboard asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/offboard-asset-inventory.md).
 
 ## Support
 Please see our [support policy](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/SUPPORT.md).
