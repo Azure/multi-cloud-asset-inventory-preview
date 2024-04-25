@@ -2,7 +2,7 @@
 We have portal support under this flight link here: https://aka.ms/multicloudprivateflight 
 
 To get to the experience, you first need to browse Azure Arc in the Azure portal. 
-![ArcBrowse](images/ArcBrowse.png)
+![ArcBrowse](main/images/ArcBrowse.png)
 
 Next, navigate to the `Connectors` blade under `Management` in the table of contents within in the Azure Arc portal and click Create.
 [ConnectorBrowse](images/ConnectorsBrowse.png)
