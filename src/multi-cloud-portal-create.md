@@ -7,7 +7,7 @@ To get to the experience, you first need to browse Azure Arc in the Azure portal
 Next, navigate to the `Connectors` blade under `Management` in the table of contents within in the Azure Arc portal and click Create.
 ![ConnectorBrowse](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/ConnectorsBrowse.png)
 
-Fill out the basic details of your connector with your AWS Account Id. We will support Orgnization Accounts soon. See [here](Connector-details.md) for more information on the Connector details.
+Fill out the basic details of your connector with your AWS Account Id. You can choose to connect to a Single Account or Organization Account. See [here](Connector-details.md) for more information on the Connector details and AWS account information.
 ![Bascis](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/BasicsCreate1.png)
 
 Next, configure the Multi-cloud solutions you are interested in by turning them on and configuring them. For more information on the solutions and the settings, see here:
@@ -26,15 +26,15 @@ Next, download the Cloud Formation Template to be uploaded on AWS. For more info
 3. In the next step, specify a stack name. Leave everything else as default.
    ![StackCreate2](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stack2.png)
 4. Confirm the information is correct and check "I acknowledge ..". Click Submit
-   ![StackCreate2](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stacksubmit.jpg)
+   ![StackCreate3](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/submitstack.jpg)
 
 ### Create StackSet (needed for Organization Accounts)
 You need to complete the following steps if you are using an Organization account. 
 1. Log into the AWS Console and [Create StackSet](https://aka.ms/MultiCloudStackSetCreate) by navigating to AWS management console --> CloudFormation --> StackSet --> Create StackSet
 2. Leave the default settings and upload the template
-   ![StackSetCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stacksetcreate.jpg)
+   ![StackSetCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stacksetcreate.png)
 3. Update the StackSet details and use `AzureArcMultiCloudStackset` as the StackSet name
-   ![StackSetCreate2](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stacksetcreate21.jpg)
+   ![StackSetCreate2](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stacksetcreate21.png)
 4. Choose your orgnization account to deploy to.
 5. Choose an AWS region to deploy the Stack to. This can be any region. Leave everything else with the default values. 
    ![StackSetCreate3](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stackset3.png)
