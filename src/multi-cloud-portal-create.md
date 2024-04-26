@@ -15,7 +15,7 @@ Next, configure the Multi-cloud solutions you are interested in by turning them 
 - [ArcOnboarding](src/Arc-onboarding-details.md)
 ![SolutionCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/SolutionsCreate.png)
 
-Next, following the instructions to upload your Cloud Formation Temaplte on AWS. For more information, see [here](src/Connector-details.md#authentication-via-aws-cloud-formation-templates)
+Next, following the instructions to upload your Cloud Formation Temaplte on AWS. For more information, see [here](Connector-details.md#authentication-via-aws-cloud-formation-templates)
 ![SolutionCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/templateCreate.png)
 
 Next, add any tags on your Connector resource and then click Review and Create. Your Connector and Solutions will be created and the import should scan within an hour. For next steps, 
