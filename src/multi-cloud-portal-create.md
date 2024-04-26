@@ -7,7 +7,7 @@ To get to the experience, you first need to browse Azure Arc in the Azure portal
 Next, navigate to the `Connectors` blade under `Management` in the table of contents within in the Azure Arc portal and click Create.
 ![ConnectorBrowse](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/ConnectorsBrowse.png)
 
-Fill out the basic details of your connector with your AWS Account Id. We will support Orgnization Accounts soon. See [here](src/Connector-details.md) for more information on the Connector details.
+Fill out the basic details of your connector with your AWS Account Id. We will support Orgnization Accounts soon. See [here](Connector-details.md) for more information on the Connector details.
 ![Bascis](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/BasicsCreate1.png)
 
 Next, configure the Multi-cloud solutions you are interested in by turning them on and configuring them. For more information on the solutions and the settings, see here:
