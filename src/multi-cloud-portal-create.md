@@ -11,8 +11,8 @@ Fill out the basic details of your connector with your AWS Account Id. We will s
 ![Bascis](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/BasicsCreate1.png)
 
 Next, configure the Multi-cloud solutions you are interested in by turning them on and configuring them. For more information on the solutions and the settings, see here:
-- [Inventory](src/Inventory-Details.md)
-- [ArcOnboarding](src/Arc-onboarding-details.md)
+- [Inventory](Inventory-Details.md)
+- [ArcOnboarding](Arc-onboarding-details.md)
 ![SolutionCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/SolutionsCreate.png)
 
 Next, following the instructions to upload your Cloud Formation Temaplte on AWS. For more information, see [here](Connector-details.md#authentication-via-aws-cloud-formation-templates)
