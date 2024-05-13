@@ -1,22 +1,7 @@
 # Multicloud Arc Onboarding
 
 ## Overview
-Arc Onboarding auto-discoIn addition, for resources that are discovered in AWS and projected in Azure, the resource will need an Azure region. Here is the logic for how we will map: 
-|AWS Region |Mapped Azure Region |
-|--|--|
-|us-east-1 | EastUS |
-|us-east-2 | EastUS |
-|us-west-1 | EastUS |
-|us-west-2 | EastUS |
-|ca-central-1 | EastUS |
-|ap-southeast-1 | SoutheastAsia |
-|ap-northeast-1 | SoutheastAsia |
-|ap-northeast-3 | SoutheastAsia |
-|ap-southeast-2 | AU East |
-|eu-west-1 | West Europe |
-|eu-central-1 | West Europe |
-|eu-west-2 | UK South |
-|sa-east-1 | Brazil South |vers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
+Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
 Your AWS VMs must have the SSM agent installed in order for the Arc Agent installation to succeed.
 
