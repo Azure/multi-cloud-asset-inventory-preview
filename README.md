@@ -1,14 +1,14 @@
-# Multi-cloud Connector
+# Multicloud Connector
 
 - [Overview](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#overview)
 - [Getting started with Portal](src/multi-cloud-portal-create.md)
-- [Multi-cloud Inventory](src/Inventory-Details.md)
-- [Multi-cloud Arc Onboarding](src/Arc-onboarding-details.md)
+- [Multicloud Inventory](src/Inventory-Details.md)
+- [Multicloud Arc Onboarding](src/Arc-onboarding-details.md)
 - [View and query asset inventory](https://github.com/Azure/multi-cloud-asset-inventory-preview/tree/main#view-and-query-asset-inventory)
 
 ## Overview
-The Microsoft Multi-cloud Connector allows customers to connect their non-Azure public cloud resources to Azure, providing customers with a centralized source for management and governance. Today, the Connector supports AWS environments but we plan to expand to other clouds in the future. The Multi-cloud Connector supports Multi-cloud solutions:
-* Multi-cloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with multi-cloud asset inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
+The Microsoft Multicloud Connector allows customers to connect their non-Azure public cloud resources to Azure, providing customers with a centralized source for management and governance. Today, the Connector supports AWS environments but we plan to expand to other clouds in the future. The Multicloud Connector supports Multicloud solutions:
+* Multicloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with mMlticloud Inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
 * Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
 ## Prerequisites
@@ -29,7 +29,7 @@ In Azure, to create the Connector and Solutions, you need to have write access t
 
 ## Supported Regions
 In Azure, you will need to create the connector and solution configurations in one of the supported Azure regions below: 
-- East US, West US Central, Canada Central, West Europe
+- East US, West US Central, Canada Central, West Europe, Southeast Asia, AU East 
 
 In AWS, we will scan for resources in the following regions: 
 - us-east-1, us-east-2, us-west-1, us-west-2, ca-central-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, ap-northeast-3, eu-west-1, eu-west-2, eu-central-1, eu-north-1, sa-east-1
