@@ -8,7 +8,7 @@
 
 ## Overview
 The Microsoft Multicloud Connector allows customers to connect their non-Azure public cloud resources to Azure, providing customers with a centralized source for management and governance. Today, the Connector supports AWS environments but we plan to expand to other clouds in the future. The Multicloud Connector supports Multicloud solutions:
-* Multicloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with mMlticloud Inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
+* Multicloud Inventory allows you to see an up-to-date view of your resources from other public clouds in Azure, providing you with a single place to see all of your cloud resources. In addition, you can query for all your cloud resources through Azure Resource Graph. When the assets are represented in Azure, metadata from the source cloud is also included. For instance, if you need to query all of your Azure and AWS resources with a certain tag, you can do so with Multicloud Inventory. The Inventory solution will scan your source cloud on a periodic basis to ensure a complete, correct view is represented in Azure. You can also apply Azure tags or Azure policies on these resources.
 * Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
 ## Prerequisites
@@ -23,7 +23,7 @@ For the Arc Onboarding solution, you also need the following:
   - AmazonEC2FullAccess permissions
   - EC2 instances need to have the SSM agent installed. The IAM role of `ArcForServerSSMInstanceProfile` will be generated during the onboarding process.
 
-In Azure, to create the Connector and Solutions, you need to have write access to the Resource Group you are placing those resources in. If this is the first time you are using the service, you will also need to register the following resource providers which requires Contributor access on the subscription:
+In Azure, to create the Connector and Solutions, you need to be a Subscription Contributor. If this is the first time you are using the service, you will also need to register the following resource providers which requires Contributor access on the subscription:
 - Microsoft.HybridConnectivity
 - Microsoft.AwsConnector
 
