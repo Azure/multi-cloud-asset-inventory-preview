@@ -1,4 +1,4 @@
-# Multi-cloud Connector onboarding via Portal
+# Multicloud Connector onboarding via Portal
 We have portal support under this flight link here: https://aka.ms/multicloudprivateflight 
 
 To get to the experience, you first need to browse Azure Arc in the Azure portal. 
@@ -10,7 +10,7 @@ Next, navigate to the `Connectors` blade under `Management` in the table of cont
 Fill out the basic details of your connector with your AWS Account Id. You can choose to connect to a Single Account or Organization Account. See [here](Connector-details.md) for more information on the Connector details and AWS account information.
 ![Bascis](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/BasicsCreate1.png)
 
-Next, configure the Multi-cloud solutions you are interested in by turning them on and configuring them. For more information on the solutions and the settings, see here:
+Next, configure the Multicloud solutions you are interested in by turning them on and configuring them. For more information on the solutions and the settings, see here:
 - [Inventory](Inventory-Details.md)
 - [ArcOnboarding](Arc-onboarding-details.md)
 ![SolutionCreate](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/SolutionsCreate.png)
