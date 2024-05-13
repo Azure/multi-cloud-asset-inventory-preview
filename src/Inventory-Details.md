@@ -84,8 +84,9 @@ Today, the following items are scanned and represented in Azure. When creating t
 
 
 ## Supported Regions
+
 In Azure, you will need to create solution in one of the supported Azure regions below: 
-- 
+- testRegion
 
 In AWS, we will scan for resources in the following regions: 
 - us-east-1, us-east-2, us-west-1, us-west-2, ca-central-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, ap-northeast-3, eu-west-1, eu-west-2, eu-central-1, eu-north-1, sa-east-1
@@ -98,20 +99,20 @@ When you onboard to Multicloud Inventory, our service will create a new resource
 All of the discovered resources will be placed in that resource group. Also, all of the scanned items will be resources in Azure under the AwsConnector namespace. You can apply Azure tags and policies to these resources.
 
 In addition, for resources that are discovered in AWS and projected in Azure, the resource will need an Azure region. Here is the logic for how we will map: 
-		|AWS Region |Mapped Azure Region |
-		|--|--|
-		|us-east-1 | EastUS |
-		|us-east-2 | EastUS |
-		|us-west-1 | EastUS |
-		|us-west-2 | EastUS |
-    |ca-central-1 | EastUS |
-		|ap-southeast-1 | SoutheastAsia |
-    |ap-northeast-1 | SoutheastAsia |
-    |ap-northeast-3 | SoutheastAsia |
-		|eu-west-1 | West Europe |
-    |eu-central-1 | West Europe |
-    |eu-west-2 | UK South |
-    |sa-east-1 | Brazil South |
+|AWS Region |Mapped Azure Region |
+|--|--|
+|us-east-1 | EastUS |
+|us-east-2 | EastUS |
+|us-west-1 | EastUS |
+|us-west-2 | EastUS |
+|ca-central-1 | EastUS |
+|ap-southeast-1 | SoutheastAsia |
+|ap-northeast-1 | SoutheastAsia |
+|ap-northeast-3 | SoutheastAsia |
+|eu-west-1 | West Europe |
+|eu-central-1 | West Europe |
+|eu-west-2 | UK South |
+|sa-east-1 | Brazil South |
      
 ## Periodic Sync Time
 The periodic sync time determines how often your AWS account is scanned and synced to Azure. Any time there is a change in AWS for your resource, that change will be reflected in Azure. For instance, if a resource is deleted on AWS, that resoruce will be deleted in Azure. We want to create a source of truth inventory that is up to date with your source cloud. 
