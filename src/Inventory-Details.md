@@ -112,6 +112,7 @@ In addition, for resources that are discovered in AWS and projected in Azure, th
 |ap-southeast-2 | AU East |
 |eu-west-1 | West Europe |
 |eu-central-1 | West Europe |
+|eu-north-1 | West Europe |
 |eu-west-2 | UK South |
 |sa-east-1 | Brazil South |
      
