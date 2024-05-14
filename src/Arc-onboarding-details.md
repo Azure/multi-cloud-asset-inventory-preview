@@ -7,7 +7,7 @@ Your AWS VMs must have the SSM agent installed in order for the Arc Agent instal
 
 ## Supported Regions
 In Azure, you will need to create solution in one of the supported Azure regions below: 
-- West US 2, South Central US, UK South, Southeast Asia, West Europe, Esat US, Australia East, East US 2, North Europe, West US 3, Sweden Central, Finland Central
+- East US, West US Central, Canada Central, West Europe
 
 In AWS, we will scan for EC2 instances in the following regions. You are able to filter for specific regions if you do not want to scan all of them.
 - us-east-1, us-east-2, us-west-1, us-west-2, ca-central-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, ap-northeast-3, eu-west-1, eu-west-2, eu-central-1, eu-north-1, sa-east-1
