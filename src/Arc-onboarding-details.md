@@ -30,6 +30,7 @@ In addition, for the EC2 VMs discovered, we will create an Arc-enabled server an
 |ap-southeast-2 | AU East |
 |eu-west-1 | West Europe |
 |eu-central-1 | West Europe |
+|eu-north-1 | West Europe |
 |eu-west-2 | UK South |
 |sa-east-1 | Brazil South |
 
