@@ -27,6 +27,9 @@ In Azure, to create the Connector and Solutions, you need to be a Subscription C
 - Microsoft.HybridConnectivity
 - Microsoft.AwsConnector
 
+> [!NOTE]
+> The Multicloud Connector works side by side along with the [Defender for Cloud Connector](https://learn.microsoft.com/azure/defender-for-cloud/quickstart-onboard-aws). You can leverage both Connectors if you choose.
+
 ## Supported Regions
 In Azure, you will need to create the connector and solution configurations in one of the supported Azure regions below: 
 - East US, West US Central, Canada Central, West Europe
