@@ -86,7 +86,7 @@ Today, the following items are scanned and represented in Azure. When creating t
 ## Supported Regions
 
 In Azure, you will need to create solution in one of the supported Azure regions below: 
-- testRegion
+- East US, West US Central, Canada Central, West Europe
 
 In AWS, we will scan for resources in the following regions: 
 - us-east-1, us-east-2, us-west-1, us-west-2, ca-central-1, ap-southeast-1, ap-southeast-2, ap-northeast-1, ap-northeast-3, eu-west-1, eu-west-2, eu-central-1, eu-north-1, sa-east-1
