@@ -1,14 +1,14 @@
-# Multi-cloud Connector
+# Multicloud Connector
 
 ## Overview
-The Microsoft Multi-cloud Connector allows customers to connect their non-Azure public cloud environments to Azure. The Connector contains the details for the AWS account that you would like to connect to. The connector object is stored under `Microsoft.HybridConnectivity/publicCloudConnector`.
+The Microsoft Multicloud Connector allows customers to connect their non-Azure public cloud environments to Azure. The Connector contains the details for the AWS account that you would like to connect to. The connector object is stored under `Microsoft.HybridConnectivity/publicCloudConnector`.
 
 ## Supported Regions
 In Azure, you will need to create connector in one of the supported Azure regions below: 
-- West US 2, South Central US, UK South, Southeast Asia, West Europe, Esat US, Australia East, East US 2, North Europe, West US 3, Sweden Central, Finland Central
+- East US, West US Central, Canada Central, West Europe
 
 ## Connector and Solutions
-The Multi-cloud Connector can contain 1 or more solutions. Today, the solutions that are supported are the following: 
+The Multicloud Connector can contain 1 or more solutions. Today, the solutions that are supported are the following: 
 - [Inventory](src/Inventory-Details.md)
 - [Arc Onboarding](src/Arc-onboarding-details.md)
 
@@ -23,7 +23,7 @@ To learn more about Cloud Formation Template, see AWS Documentation [here](https
 When you create the connect through the Azure portal, the Cloud Formation Template will be generated for you based on the solutions you have selected. If you are not using the Azure portal, you can call an API to generate the Cloud Formation Template. The API details will be added to this documentation soon.
 
 ## Single Account and Organization Account supported
-The Multi-cloud Connector supports both AWS Organization Accounts and AWS Single Accounts. 
+The Multicloud Connector supports both AWS Organization Accounts and AWS Single Accounts. 
 
 For Organization Accounts, you will need to upload the cloud formation template in two places in the AWS Cloud Formation Console. 
 1. Stacks
