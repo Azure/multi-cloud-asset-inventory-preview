@@ -16,10 +16,6 @@ Today, the following items are scanned and represented in Azure. When creating t
 | Cloud Trail   | cloudTrailTrails     | Microsoft.AwsConnector/cloudTrailTrails|
 | Cloud Watch   | cloudWatchAlarms     | Microsoft.AwsConnector/cloudWatchAlarms|
 | Dynamo DB    | dynamoDBTables     | Microsoft.AwsConnector/dynamoDBTables|
-| Dynamo DB    | dynamoDBTables     | Microsoft.AwsConnector/dynamoDBTables|
-| Dynamo DB    | dynamoDBTables     | Microsoft.AwsConnector/dynamoDBTables|
-| Dynamo DB    | dynamoDBTables     | Microsoft.AwsConnector/dynamoDBTables|
-| Dynamo DB    | dynamoDBTables     | Microsoft.AwsConnector/dynamoDBTables|
 | EC2    | ec2Instances    | Microsoft.HybridCompute/machines/EC2InstanceId/Microsoft.AwsConnector/Ec2Instances|
 | EC2    | ec2KeyPairs    | Microsoft.AwsConnector/ec2KeyPairs|
 | EC2    | ec2Subnets    | Microsoft.AwsConnector/ec2Subnets|
