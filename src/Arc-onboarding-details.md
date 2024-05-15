@@ -3,7 +3,10 @@
 ## Overview
 Arc Onboarding auto-discovers EC2 instances running in your AWS environment and installs the Arc agent on the VMs. This simplified experience will enable customers to onboard to Azure management services such as Azure Monitor, providing a centralized way for customers to manage their Azure and AWS VMs.
 
-Your AWS VMs must have the SSM agent installed in order for the Arc Agent installation to succeed.
+## Prereqs
+1. Your AWS VMs must have the SSM agent installed in order for the Arc Agent installation to succeed.
+2. You need to have the ArcForServerSSMRole IAM role assigned on your machine.
+3. You need to have the 'arc' tag as the key value. This is case sensitive.
 
 ## Supported Regions
 In Azure, you will need to create solution in one of the supported Azure regions below: 
