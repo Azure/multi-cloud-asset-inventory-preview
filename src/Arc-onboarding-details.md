@@ -40,7 +40,7 @@ In addition, for the EC2 VMs discovered, we will create an Arc-enabled server an
 ## Filtering Rules
 You can filter for which Azure regions you would like to scan for. By default, all regions will be scanned. 
 
-In addition, you must have a tag on your EC2 instances with the key of `Arc` and empty value. If your EC2 instance does not have this tag, the Arc agent will not be installed.
+In addition, you must have a tag on your EC2 instances with the key of `arc` and empty value. This is case sensitive. If your EC2 instance does not have this tag, the Arc agent will not be installed.
 
 ## Connectivity Method
 You can select how the Arc Connected machine agent should connect through the internet through either public endpoints or through a proxy server. You can learn more [here](https://learn.microsoft.com/azure/azure-arc/servers/network-requirements)
