@@ -40,7 +40,8 @@ You need to complete the following steps if you are using an Organization accoun
    ![StackSetCreate3](https://github.com/Azure/multi-cloud-asset-inventory-preview/blob/main/images/stackset3.png)
 6. Confirm the information is correct and check "I acknowledge ..". Click Submit
 
-This will complete the actions needed on the AWS console.
+> [!NOTE]
+> If you have selected Arc Onboarding solution, you will also need to ensure you have met the [prereqs](Inventory-Details.md)
 
 
 Next, add any tags on your Connector resource and then click Review and Create. Your Connector and Solutions will be created and the import should scan within an hour. For next steps, 
