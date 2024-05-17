@@ -41,7 +41,7 @@ You need to complete the following steps if you are using an Organization accoun
 6. Confirm the information is correct and check "I acknowledge ..". Click Submit
 
 > [!NOTE]
-> If you have selected Arc Onboarding solution, you will also need to ensure you have met the [prereqs](Inventory-Details.md)
+> If you have selected Arc Onboarding solution, you will also need to ensure you have met the [prereqs](Arc-onboarding-details.md#prereqs).
 
 
 Next, add any tags on your Connector resource and then click Review and Create. Your Connector and Solutions will be created and the import should scan within an hour. For next steps, 
