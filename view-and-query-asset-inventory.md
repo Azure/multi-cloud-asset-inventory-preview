@@ -34,15 +34,17 @@ resources
 ```
 
 
-- Scenario: query for all virtual machines and Arc-enabled servers in Azure and onboarded AWS EC2 instances from AWS as multi-cloud asset inventories.
+- Scenario: query for all resources under a specific connector
 ```
-awsresources
-| where ['type'] contains "microsoft.awsconnector/ec2instances"
-```
-```
-resources 
-| where subscriptionId == "<yoursubscriptionid>"
-| where ['type'] contains "microsoft.hybridcompute" or ['type'] contains "microsoft.compute"
+resources
+| extend connectorId = tolower(tostring(properties.publicCloudConnectorsResourceId)), resourcesId=tolower(id)
+| join kind=leftouter (
+    awsresources
+    | extend pccId = tolower(tostring(properties.publicCloudConnectorsResourceId)), awsresourcesId=tolower(id)
+    | extend parentId = substring(awsresourcesId, 0, strlen(awsresourcesId) - strlen("/providers/microsoft.awsconnector/ec2instances/default"))
+) on $left.resourcesId == $right.parentId
+| where connectorId =~ "yourConnectorId" or pccId =~ "yourConnectorId"
+| extend resourceType = tostring(split(iif (type =~ "microsoft.hybridcompute/machines", type1, type), "/")[1])
 ```
 
 - Scenario: query for all virtual machines in Azure and AWS along with their instance size
