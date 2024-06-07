@@ -58,6 +58,21 @@ resources
 | project subscriptionId, cloud, resourceGroup, id, size, azureTags, awsTags, properties
 ```
 
+- Scenario: query for all hybrid, multicloud, and Azure VMs
+  ```
+resources 
+| where (['type'] == "microsoft.hybridcompute/machines" or ['type'] == "microsoft.compute/virtualmachines") and subscriptionId =="youSubId"
+| parse id with * "Microsoft.HybridCompute/machines/" instanceId
+| join kind=leftouter
+(awsresources | where subscriptionId =="youSubId" and type == "microsoft.awsconnector/ec2instances"
+| extend instanceId=tostring(properties.awsProperties.instanceId)) on instanceId
+| extend Environment=iff(type contains "microsoft.compute", "Azure", (iff(kind!="", kind, "Hybrid server")))
+| extend AwsTags=properties1.awsTags, AzureTags=tags
+| project name, ['type'], Environment, subscriptionId, resourceGroup, AzureTags, AwsTags
+| order by ['Environment'] asc
+```
+
+
 - Scenario: query for all functions across Azure and AWS
 ```
 resources
