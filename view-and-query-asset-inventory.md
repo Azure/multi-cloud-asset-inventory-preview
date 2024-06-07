@@ -34,6 +34,7 @@ resources
 ```
 
 
+
 - Scenario: query for all resources under a specific connector
 ```
 resources
@@ -47,6 +48,7 @@ resources
 | extend resourceType = tostring(split(iif (type =~ "microsoft.hybridcompute/machines", type1, type), "/")[1])
 ```
 
+
 - Scenario: query for all virtual machines in Azure and AWS along with their instance size
 ```
 resources 
@@ -57,6 +59,7 @@ resources
 | extend size=iff(type contains "microsoft.compute", properties.hardwareProfile.vmSize, properties.awsProperties.instanceType.value)
 | project subscriptionId, cloud, resourceGroup, id, size, azureTags, awsTags, properties
 ```
+
 
 - Scenario: query for all hybrid, multicloud, and Azure VMs
 ```
@@ -73,6 +76,7 @@ resources
 ```
 
 
+
 - Scenario: query for all functions across Azure and AWS
 ```
 resources
@@ -81,6 +85,7 @@ resources
 | extend functionName=iff(cloud=="Azure", properties.name,properties.awsProperties.functionName), state=iff(cloud=="Azure", properties.state, properties.awsProperties.state), lastModifiedTime=iff(cloud=="Azure", properties.lastModifiedTimeUtc,properties.awsProperties.lastModified), location=iff(cloud=="Azure", location,properties.awsRegion),  tags=iff(cloud=="Azure", tags, properties.awsTags)
 | project cloud, functionName, lastModifiedTime, location, tags
 ```
+
 
 - Scenario: query for all resources with certain tag 
 ```
