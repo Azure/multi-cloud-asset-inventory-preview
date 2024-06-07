@@ -59,7 +59,7 @@ resources
 ```
 
 - Scenario: query for all hybrid, multicloud, and Azure VMs
-  ```
+```
 resources 
 | where (['type'] == "microsoft.hybridcompute/machines" or ['type'] == "microsoft.compute/virtualmachines") and subscriptionId =="youSubId"
 | parse id with * "Microsoft.HybridCompute/machines/" instanceId
