@@ -67,6 +67,30 @@ registerFeatureFlags()
     echo "INFO: Feature flag registration is now complete."
 }
 
+generateGCPTemplate()
+{
+    echo
+    generateGCPTemplateUri=https://management.azure.com/subscriptions/$subscriptionId/providers/Microsoft.HybridConnectivity/generateGCPTemplate
+
+    echo "INFO: Generating GCP template for project: $gcpProjectNumber using uri: $generateGCPTemplateUri"
+
+    publicCloudConnectorId=/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.HybridConnectivity/publicCloudConnectors/$publicCloudConnectorName
+    requestBody="{\"connectorId\":\"$publicCloudConnectorId\",\"solutionTypes\":[{\"solutionType\":\"Microsoft.AssetManagement\",\"solutionSettings\":{\"gcpServiceTypes\":\"storage,compute,cloudfunctions\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}, {\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scalAllGCPRegions\":\"true\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}]}"
+
+    echo $requestBody
+
+    gcpTemplate=`az rest --method post --url $generateGCPTemplateUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$requestBody" --query body --output json`
+
+    if [ -z "$gcpTemplate" ]; then
+        echo "ERROR: Failed to generate GCP template. Please check the input parameters and try again."
+        exit 1
+    else
+        echo "INFO: Successfully generated GCP template."
+        echo "$gcpTemplate" > main.tf.json
+        echo "INFO: GCP template saved to main.tf.json"
+    fi
+}
+
 # Create GCP Connector
 createGCPConnector()
 {
@@ -85,22 +109,43 @@ createGCPConnector()
     fi
 }
 
-# Create SolutionConfiguration
-createSolutionConfiguration()
+# Create SolutionConfiguration for inventory solution
+createSolutionConfigurationForInventorySolution()
 {
     echo
-    solutionConfigurationUri=https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.HybridConnectivity/publicCloudConnectors/$publicCloudConnectorName/providers/Microsoft.HybridConnectivity/solutionConfigurations/$solutionConfigurationName
+    solutionConfigurationUri=https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.HybridConnectivity/publicCloudConnectors/$publicCloudConnectorName/providers/Microsoft.HybridConnectivity/solutionConfigurations/$inventorySolutionConfigurationName
 
-    echo "INFO: Creating solution configuration resource: $solutionConfigurationUri"
+    echo "INFO: Creating solution configuration resource for inventory solution: $solutionConfigurationUri"
 
-    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.AssetManagement\",\"solutionSettings\":{\"gcpServiceTypes\":\"$gcpServicesToImport\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}}"
+    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.AssetManagement\",\"solutionSettings\":{\"scanAllGCPServices\":\"$true\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}}"
 
     solutionConfigurationState=`az rest --method put --url $solutionConfigurationUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$solutionConfigurationRequest" --query properties.provisioningState --output tsv`
 
     if [[ "$solutionConfigurationState" == "Succeeded" ]]; then
-        echo "INFO: Successfully created solution configuration resource."
+        echo "INFO: Successfully created solution configuration resource for inventory solution."
     else
-        echo "FAILED: Error occurred while creating solution configuration resource."
+        echo "FAILED: Error occurred while creating solution configuration resource for inventory solution."
+
+        exit 1
+    fi
+}
+
+# Create SolutionConfiguration for Arc Server solution
+createSolutionConfigurationForArcServerSolution()
+{
+    echo
+    solutionConfigurationUri=https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.HybridConnectivity/publicCloudConnectors/$publicCloudConnectorName/providers/Microsoft.HybridConnectivity/solutionConfigurations/$arcServerSolutionConfigurationName
+
+    echo "INFO: Creating solution configuration resource for arc server solution: $solutionConfigurationUri"
+
+    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scanAllGCPRegions\":\"$true\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}}"
+
+    solutionConfigurationState=`az rest --method put --url $solutionConfigurationUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$solutionConfigurationRequest" --query properties.provisioningState --output tsv`
+
+    if [[ "$solutionConfigurationState" == "Succeeded" ]]; then
+        echo "INFO: Successfully created solution configuration resource for arc server solution."
+    else
+        echo "FAILED: Error occurred while creating solution configuration resource for arc server solution."
 
         exit 1
     fi
@@ -132,7 +177,8 @@ readConfiguration()
 initConfiguration()
 {
     resourceGroupName="gcp-asset-management-rg"
-    solutionConfigurationName="gcp-asset-management"
+    inventorySolutionConfigurationName="gcp-asset-management"
+    arcServerSolutionConfigurationName="gcp-arc-server-solution"
     publicCloudConnectorName="gcp-connector-$gcpProjectNumber"
     azureLocation="eastus"
 }
@@ -184,7 +230,8 @@ registerFeatureFlags
 
 # Create ARM resources
 createGCPConnector
-createSolutionConfiguration
+createSolutionConfigurationForInventorySolution
+createSolutionConfigurationForArcServerSolution
 
 # read tenantId
 azure_user_tenant_id=$(az account show --query tenantId -o tsv)
