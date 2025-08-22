@@ -245,6 +245,10 @@ echo "                      !!!!!!!! Action required !!!!!!!!"
 echo
 echo "Please use PublicCloudConnectorAzureTenantId as $azure_user_tenant_id"
 echo
+echo "GCP Terraform template is saved to main.tf.json. Run below steps to configure GCP account."
+echo "terraform init"
+echo "terraform plan"
+echo "terraform apply"
 echo "After GCP terraform template is successfully deployed, GCP resources will be imported into $gcp_resource_group_name resource group in Azure."
 echo
 echo "                      !!!!!!!! Action required !!!!!!!!"
