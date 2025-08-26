@@ -138,7 +138,7 @@ createSolutionConfigurationForArcServerSolution()
 
     echo "INFO: Creating solution configuration resource for arc server solution: $solutionConfigurationUri"
 
-    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scanAllGCPRegions\":\"$true\",\"periodicSyncTime\":\"1\",\"periodicSync\":\"true\"}}}"
+    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scanAllGCPRegions\":\"true\",\"periodicSyncTime\":\"1\",\"periodicSync\":\"true\"}}}"
 
     solutionConfigurationState=`az rest --method put --url $solutionConfigurationUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$solutionConfigurationRequest" --query properties.provisioningState --output tsv`
 
