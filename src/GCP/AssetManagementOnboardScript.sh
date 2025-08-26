@@ -117,7 +117,7 @@ createSolutionConfigurationForInventorySolution()
 
     echo "INFO: Creating solution configuration resource for inventory solution: $solutionConfigurationUri"
 
-    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.AssetManagement\",\"solutionSettings\":{\"scanAllGCPServices\":\"true\",\"gcpGlobalReadOnly\":\"true\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}}"
+    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.AssetManagement\",\"solutionSettings\":{\"scanAllGCPServices\":\"true\",\"gcpGlobalReadOnly\":\"true\",\"periodicSyncTime\":\"1\",\"periodicSync\":\"true\"}}}"
 
     solutionConfigurationState=`az rest --method put --url $solutionConfigurationUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$solutionConfigurationRequest" --query properties.provisioningState --output tsv`
 
@@ -138,7 +138,7 @@ createSolutionConfigurationForArcServerSolution()
 
     echo "INFO: Creating solution configuration resource for arc server solution: $solutionConfigurationUri"
 
-    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scanAllGCPRegions\":\"$true\",\"periodicSyncTime\":\"$periodicSyncTime\",\"periodicSync\":\"$periodicSync\"}}}"
+    solutionConfigurationRequest="{\"properties\":{\"solutionType\":\"Microsoft.HybridCompute.Onboard\",\"solutionSettings\":{\"scanAllGCPRegions\":\"$true\",\"periodicSyncTime\":\"1\",\"periodicSync\":\"true\"}}}"
 
     solutionConfigurationState=`az rest --method put --url $solutionConfigurationUri?api-version=2025-12-01-preview --header "content-type=application/json" --body "$solutionConfigurationRequest" --query properties.provisioningState --output tsv`
 
@@ -166,10 +166,6 @@ readConfiguration()
     if [ -z ${subscriptionId+x} ]; then invalidConfiguration "subscriptionId"; else echo "INFO: subscriptionId: '$subscriptionId'"; fi
 
     if [ -z ${gcpProjectNumber+x} ]; then invalidConfiguration "gcpProjectNumber"; else echo "INFO: gcpProjectNumber: '$gcpProjectNumber'"; fi
-
-    if [ -z ${periodicSync+x} ]; then invalidConfiguration "periodicSync"; else echo "INFO: periodicSync: '$periodicSync'"; fi
-
-    if [ -z ${periodicSyncTime+x} ]; then invalidConfiguration "periodicSyncTime"; else echo "INFO: periodicSyncTime: '$periodicSyncTime'"; fi
 }
 
 initConfiguration()
