@@ -167,8 +167,6 @@ readConfiguration()
 
     if [ -z ${gcpProjectNumber+x} ]; then invalidConfiguration "gcpProjectNumber"; else echo "INFO: gcpProjectNumber: '$gcpProjectNumber'"; fi
 
-    if [ -z ${gcpServicesToImport+x} ]; then invalidConfiguration "gcpServicesToImport"; else echo "INFO: gcpServicesToImport: '$gcpServicesToImport'"; fi
-
     if [ -z ${periodicSync+x} ]; then invalidConfiguration "periodicSync"; else echo "INFO: periodicSync: '$periodicSync'"; fi
 
     if [ -z ${periodicSyncTime+x} ]; then invalidConfiguration "periodicSyncTime"; else echo "INFO: periodicSyncTime: '$periodicSyncTime'"; fi
