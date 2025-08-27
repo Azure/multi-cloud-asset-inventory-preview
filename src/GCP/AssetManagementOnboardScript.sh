@@ -223,6 +223,7 @@ registerRPs
 registerFeatureFlags
 
 # Create ARM resources
+generateGCPTemplate
 createGCPConnector
 createSolutionConfigurationForInventorySolution
 createSolutionConfigurationForArcServerSolution
