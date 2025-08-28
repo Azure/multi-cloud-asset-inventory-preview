@@ -84,11 +84,82 @@ generateGCPTemplate()
     if [ -z "$gcpTemplate" ]; then
         echo "ERROR: Failed to generate GCP template. Please check the input parameters and try again."
         exit 1
-    else
-        echo "INFO: Successfully generated GCP template."
-        echo "$gcpTemplate" > main.tf.json
-        echo "INFO: GCP template saved to main.tf.json"
     fi
+
+    modifiedTemplate=""
+    in_locals=0
+    brace_count=0
+
+    while IFS= read -r line; do
+
+        if [[ "$line" =~ \"google\"[[:space:]]*:[[:space:]]*\{\} ]]; then
+            modifiedTemplate+="  \"google\": { \"project\": \"\${local.project_id}\" }"$'\n'
+        continue
+        fi
+        # Detect start of locals block
+        if [[ "$line" =~ \"locals\"[[:space:]]*:[[:space:]]*\{ ]]; then
+            in_locals=1
+            brace_count=1
+            modifiedTemplate+="$line"$'\n'
+            continue
+        fi
+
+        if [[ $in_locals -eq 1 ]]; then
+            # Track braces to know when locals block ends
+            open=$(grep -o '{' <<< "$line" | wc -l)
+            close=$(grep -o '}' <<< "$line" | wc -l)
+            brace_count=$((brace_count + open - close))
+
+            # Replace project_id and project_number lines
+            if [[ "$line" =~ \"project_id\" ]]; then
+                modifiedTemplate+="    \"project_id\": \"$gcpProjectId\","$'\n'
+                continue
+            fi
+            if [[ "$line" =~ \"project_number\" ]]; then
+                modifiedTemplate+="    \"project_number\": \"$gcpProjectNumber\""$'\n'
+                continue
+            fi
+
+            modifiedTemplate+="$line"$'\n'
+
+            # End of locals block
+            if [[ $brace_count -eq 0 ]]; then
+                in_locals=0
+            fi
+            continue
+        fi
+
+        # Lines outside locals block
+        modifiedTemplate+="$line"$'\n'
+    done <<< "$gcpTemplate"
+
+    # Save to main.tf.json
+    echo "$modifiedTemplate" > main.tf.json
+}
+
+configureOIDCAuthOnGCP()
+{
+    # Install gcloud CLI (Linux x86_64)
+    if ! command -v gcloud &> /dev/null; then
+        echo "Installing gcloud CLI..."
+        curl -sSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-495.0.0-linux-x86_64.tar.gz -o google-cloud-cli.tar.gz
+        tar -xf google-cloud-cli.tar.gz
+        ./google-cloud-sdk/install.sh -q
+        source ./google-cloud-sdk/path.bash.inc
+    fi
+
+    # Authenticate (opens browser for login)
+    echo "Authenticating..."
+    ADC_FILE="$HOME/.config/gcloud/application_default_credentials.json"
+
+    if [ ! -f "$ADC_FILE" ]; then
+        echo "No Application Default Credentials found at $ADC_FILE."
+        echo "Starting login process..."
+        gcloud auth application-default login
+    fi
+    terraform init
+    terraform plan
+    terraform apply -auto-approve
 }
 
 # Create GCP Connector
@@ -166,6 +237,9 @@ readConfiguration()
     if [ -z ${subscriptionId+x} ]; then invalidConfiguration "subscriptionId"; else echo "INFO: subscriptionId: '$subscriptionId'"; fi
 
     if [ -z ${gcpProjectNumber+x} ]; then invalidConfiguration "gcpProjectNumber"; else echo "INFO: gcpProjectNumber: '$gcpProjectNumber'"; fi
+
+    if [ -z ${gcpProjectId+x} ]; then invalidConfiguration "gcpProjectId"; else echo "INFO: gcpProjectId: '$gcpProjectId'"; fi
+
 }
 
 initConfiguration()
@@ -224,6 +298,7 @@ registerFeatureFlags
 
 # Create ARM resources
 generateGCPTemplate
+configureOIDCAuthOnGCP
 createGCPConnector
 createSolutionConfigurationForInventorySolution
 createSolutionConfigurationForArcServerSolution
@@ -240,10 +315,6 @@ echo "                      !!!!!!!! Action required !!!!!!!!"
 echo
 echo "Please use PublicCloudConnectorAzureTenantId as $azure_user_tenant_id"
 echo
-echo "GCP Terraform template is saved to main.tf.json. Run below steps to configure GCP account."
-echo "terraform init"
-echo "terraform plan"
-echo "terraform apply"
 echo "After GCP terraform template is successfully deployed, GCP resources will be imported into $gcp_resource_group_name resource group in Azure."
 echo
 echo "                      !!!!!!!! Action required !!!!!!!!"
